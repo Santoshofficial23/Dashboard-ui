@@ -1,0 +1,15 @@
+import { Box, Text } from "@chakra-ui/react";
+import BankTable from "./Banktable";
+
+
+const Bankpage = () => {
+  return (
+    <Box>
+      <Text fontWeight={"bold"}> Bank setup</Text>
+      <Text> Manage your bank from here</Text>
+      <BankTable/>
+    </Box>
+  );
+};
+
+export default Bankpage;
