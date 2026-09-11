@@ -34,6 +34,7 @@ export type Bank = {
   partner: boolean;
   institutionType: string;
   bank: boolean;
+  active:boolean;
   logo?:
     | File[]
     | string
@@ -83,7 +84,8 @@ export type MenuResponseType =  {
   menuUrl?: string;
   icon?: string;
   privilege: string[];
-  displayOrder: number ;
+  displayOrder: number;
+  active:boolean;
   parentMenu?: string;
   status: boolean;
   subMenus?: MenuSubItem[];
@@ -105,6 +107,7 @@ export type MenuFilterResponse = {
 export interface MenuSetupPayload {
   id?: string;
   menuName: string;
+  active:boolean;
   menuCode: string;
   moduleType: MODULE_TYPE;
   privilege: string[];

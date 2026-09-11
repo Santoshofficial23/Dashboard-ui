@@ -21,7 +21,7 @@ export const useDeleteBank = () => {
           },
         }
       );
-console.log(response)
+// console.log(response)
       return response.data;
     },
 

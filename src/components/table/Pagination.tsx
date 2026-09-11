@@ -97,7 +97,6 @@ const Pagination = ({
       flexWrap="wrap"
       gap="3"
     >
-      {/* Page Size */}
       <HStack gap="4">
         <Text
           fontSize="sm"
@@ -187,7 +186,6 @@ const Pagination = ({
             ),
         )}
 
-        {/* Next */}
         <IconButton
           aria-label="Next page"
           size="sm"
@@ -203,7 +201,6 @@ const Pagination = ({
           <ArrowRight size={16} />
         </IconButton>
 
-        {/* Last */}
         <IconButton
           aria-label="Last page"
           size="sm"

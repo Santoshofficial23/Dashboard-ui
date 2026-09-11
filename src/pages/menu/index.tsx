@@ -5,12 +5,13 @@ import { Pencil, Trash2 } from "lucide-react";
 import TableComp, {
   type TableColumnDef,
 } from "../../components/table/Tablecomp";
-
 import { useFetchMenu } from "../../components/hooks/menu/useFetchmenu";
 import MenuDrawer from "./MenuDrawer";
-
 import type { MenuResponseType } from "@/types/type";
 import type { FilterPayloadType } from "@/types/index";
+import { SwitchComp } from "../../components/ui/switch-button";
+import { useToggleMenu } from "../../components/hooks/menu/useFetchmenu";
+// import { QueryClient } from "@tanstack/react-query";
 
 const MenuTable = () => {
   const [payload, setPayload] = useState<FilterPayloadType>({
@@ -18,11 +19,9 @@ const MenuTable = () => {
     size: 10,
     searchValue: "",
   });
-
+  const { mutate: toggleMenu} = useToggleMenu();
   const [selectedMenuId, setSelectedMenuId] = useState<string | null>(null);
-
   const { open, onOpen, onClose } = useDisclosure();
-
   const { data, isLoading, isFetching } = useFetchMenu(payload);
 
   const handleAddMenu = () => {
@@ -33,6 +32,9 @@ const MenuTable = () => {
   const handleEditMenu = (id: string) => {
     setSelectedMenuId(id);
     onOpen();
+  };
+  const handleToggleMenu = (id: string) => {
+    toggleMenu(id);
   };
 
   const columns = useMemo<TableColumnDef<MenuResponseType>[]>(
@@ -61,7 +63,14 @@ const MenuTable = () => {
       {
         accessorKey: "status",
         header: "Status",
-        cell: ({ row }) => (row.original.status ? "Active" : "Inactive"),
+        cell: ({ row }) => (
+          <SwitchComp
+            checked={row.original.active}
+            onCheckedChange={() => {
+              handleToggleMenu(String(row.original.id));
+            }}
+          />
+        ),
       },
 
       {
@@ -92,7 +101,6 @@ const MenuTable = () => {
 
   return (
     <>
-
       <Flex justify="flex-end" mb={4}>
         <Button bg="purple.600" color="white" onClick={handleAddMenu}>
           Add Menu

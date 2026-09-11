@@ -96,9 +96,10 @@ const createMenu = async (menuData: MenuCreatePayload): Promise<MenuResponseType
 
 
 const updateMenu = async (menuData: MenuUpdatePayload): Promise<MenuResponseType> => {
-  const response = await authApi.put<MenuResponseType>(
-    `${API_ENDPOINTS.MENU_SETUP}/${menuData.id}`,
-    menuData
+  const response = await authApi.post<MenuResponseType>(
+    API_ENDPOINTS.MENU_SETUP.ADD_EDIT,
+    {data:
+    menuData }
   );
 
   return response.data;
@@ -109,6 +110,15 @@ const deleteMenu = async (menuId: string): Promise<void> => {
     `${API_ENDPOINTS.MENU_SETUP}/${menuId}`
   );
 };
+
+const toggleMenu = async (toggleId: string): Promise<void> => {
+  await authApi.post(
+    API_ENDPOINTS.MENU_SETUP.TOGGLE, {
+      data: {id: toggleId}
+    }
+  );
+};
+
 
 export const useFetchMenu = ({
   page,
@@ -168,6 +178,24 @@ export const useUpdateMenu = () => {
     },
   });
 };
+
+export const useToggleMenu=() =>{
+const queryClient = useQueryClient();
+return useMutation({
+  mutationFn: (toggleid:string) => toggleMenu(toggleid),
+  onSuccess:()=> {
+    queryClient.invalidateQueries({queryKey:["menus"]});
+    showSuccess("toggle successfully");
+  },
+  onError:(error) =>{
+    showError(
+      error instanceof Error ? error.message: "failed to toggle",
+      "Error"
+    )
+  }
+})
+}
+
 
 export const useDeleteMenu = () => {
   const queryClient = useQueryClient();

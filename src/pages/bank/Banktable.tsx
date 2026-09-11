@@ -1,28 +1,28 @@
 import { useMemo, useState, useCallback } from "react";
 import { Button, Flex, HStack, useDisclosure } from "@chakra-ui/react";
 import { Pencil, Trash2 } from "lucide-react";
-
 import type { Bank } from "../../types/type";
 import BankFormDialog from "../../pages/bank/Bankdialog";
 import { useDeleteBank } from "../../components/hooks/bank/useDeletebank";
-import { useFetchBank } from "../../components/hooks/bank/useFetchbank";
+import { useFetchBank, useToggleBank } from "../../components/hooks/bank/useFetchbank";
 import type { TableColumnDef } from "../../components/table/Tablecomp";
 import { INSTITUTION_TYPE_OPTIONS } from "../../constants/Bankoptions";
 import Deletedialog from "./Deletedialog";
 import TableComp from "../../components/table/Tablecomp";
+import { SwitchComp } from "../../components/ui/switch-button";
 
 
 const BankTable = () => {
   const [deleteId, setDeleteId] = useState<string | null>(null);
   const { open: deleteDialogOpen, onOpen: onDeleteDialogOpen, onClose: onDeleteDialogClose } = useDisclosure()
   const { open: bankDialogOpen, onOpen: onBankDialogOpen, onClose: onBankDialogClose } = useDisclosure()
-  
+  const {mutate: toggleBank} = useToggleBank();
   const { mutate: deleteBank, isPending: isDeleting } = useDeleteBank();
   const [page, setPage] = useState(1);
   const [size, setSize] = useState(4)
   const [searchValue, setSearchValue] = useState("");
   const [selectedBankId, setSelectedBankId] = useState<string | null>(null);
-
+  
   const { data, isLoading, isFetching } = useFetchBank({
     page,
     size,
@@ -33,6 +33,9 @@ const BankTable = () => {
   setPage(1);
 };
 
+const handleToggleBank = (id:string)=>{
+  toggleBank(id)
+}
   const handleDeleteClick = useCallback((id: string) => {
     setDeleteId(id);
     onDeleteDialogOpen();
@@ -82,7 +85,17 @@ const BankTable = () => {
       {
         accessorKey: "status",
         header: "Status",
-        cell: ({ row }) => (row.original.status ? "Active" : "Inactive"),
+        cell: ({ row }) => 
+        (
+          <SwitchComp 
+          checked={row.original.active}
+          onCheckedChange={() =>{
+            handleToggleBank(String(row.original.id))
+          }}
+
+          />
+        ) 
+         
       },
 
       {
@@ -156,7 +169,7 @@ const BankTable = () => {
         onClear={() => setDeleteId(null)}
       />
       <TableComp<Bank>
-        data={data?.data ?? []}
+        data={data?.data?.content ?? []} 
         columns={columns}
         loading={isLoading || isFetching}
         page={page}

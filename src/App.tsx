@@ -1,14 +1,13 @@
-import AppRoutes from './components/routes/routes'
-import Notification from './components/toaster/notification'
+import AppRoutes from "./components/routes/routes";
+import Notification from "./components/toaster/notification";
 
 const App = () => {
   return (
     <>
-    <Notification/>
-    <AppRoutes/>
+      <Notification />
+      <AppRoutes />
     </>
-   
-  )
-}
+  );
+};
 
-export default App
+export default App;
