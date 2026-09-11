@@ -1,6 +1,6 @@
 export const NAVIGATION_ROUTES={
     LOGIN:"/login",
-    USER:"/user",
+    MENU:"/menu-setup",
     DASHBOARD:"/dashboard",
     BANK:"/bank-setup"
 }

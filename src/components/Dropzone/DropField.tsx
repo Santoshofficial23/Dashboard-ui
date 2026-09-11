@@ -16,6 +16,8 @@ type DropFieldProps<T extends FieldValues> = {
   isMulti?: boolean;
   maxFiles?: number;
   maxSize:string;
+  height?:string;
+  width?:string;
   filePath?: string;
 };
 
@@ -23,6 +25,8 @@ const DropField = <T extends FieldValues>({
   name,
   control,
   label,
+  height,
+  width,
   isMulti = true,
   maxFiles = 1,
   filePath,
@@ -30,6 +34,7 @@ const DropField = <T extends FieldValues>({
   const { field, fieldState } = useController({
     name,
     control,
+  
   });
 
   return (
@@ -39,6 +44,8 @@ const DropField = <T extends FieldValues>({
     >
       <Box w="full">
         <DropZone
+        height={height}
+        width={width}
           onFileSelect={field.onChange}
           isMulti={isMulti}
           maxFiles={maxFiles}

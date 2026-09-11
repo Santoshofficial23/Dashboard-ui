@@ -3,35 +3,24 @@ import { bankApi } from "../../../services/api/apiConfig";
 import type { Bank } from "@/types/type";
 import { API_ENDPOINTS } from "../../../services/api/api";
 
-const isRecord = (value: unknown): value is Record<string, unknown> =>
-  typeof value === "object" && value !== null;
 
-const normalizeBankResponse = (payload: unknown): Bank => {
-  if (isRecord(payload) && isRecord(payload.data)) {
-    return normalizeBankResponse(payload.data);
-  }
-
-  return payload as Bank;
+const getBankById = (id: string) => {
+  return bankApi.get(
+    API_ENDPOINTS.BANK_SETUP.GET_BY_ID.replace("{id}", id)
+  );
 };
 
 export const useFetchBankById = (
-  id: string | null,
+  id: string,
   enabled = true
 ) => {
   return useQuery({
     queryKey: ["bank", id],
 
-    queryFn: async () => {
-      const response = await bankApi.get<unknown>(
-        API_ENDPOINTS.BANK_SETUP.GET_BY_ID.replace(
-          "{id}",
-          String(id)
-        )
-      );
+    queryFn: () => getBankById(id),
 
-      return normalizeBankResponse(response.data);
-    },
+    enabled: enabled && !!id,
 
-    enabled: enabled && id !== null,
+    select: (r) => r.data?.data as Bank,
   });
 };

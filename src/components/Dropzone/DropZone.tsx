@@ -17,6 +17,8 @@ type DropZoneProps = {
   MaxSize: number;
   accept?: Accept;
   filePath?: string;
+  height?: string;
+  width?: string;
 };
 
 const MAXSIZE = 1 * 1024 * 1024; // 1mb
@@ -28,6 +30,8 @@ const DropZone = ({
     "image/png": [".png"],
     "image/jpeg": [".jpg", ".jpeg"],
   },
+  height,
+  width,
   filePath,
   //   accept = {
   //   "application/pdf": [".pdf"],
@@ -134,33 +138,31 @@ const DropZone = ({
         <input {...getInputProps()} />
 
         {hasLocalPreview ? (
-          <SimpleGrid columns={isMulti ? 2 : 1} gap={3}>
+          <SimpleGrid columns={isMulti ? 1 : 3} gap={3}>
             {previews.map((preview, index) => (
               <Box key={preview} position="relative">
-                <Box position={'absolute'}
-                top={'5px'}
-                right={'5px'}
-                >
-
-                <CircleX
-                color="white"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    removeFile(index);
-                  }}
-                  />
-                  </Box>
                 <Image
                   src={preview}
                   alt={`Selected image ${index + 1}`}
-                  h="120px"
-                  w="100%"
+                  height="200px"
+                  width="full"
                   borderRadius="md"
                   objectFit="cover"
                 />
 
+                <Box position={"absolute"} top={"5px"} right={"5px"} zIndex={1}>
+                  <CircleX
+                    color="white"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      removeFile(index);
+                    }}
+                  />
+                </Box>
+
                 <Text
                   mt={2}
+                  textAlign={"end"}
                   fontSize="sm"
                   overflow="hidden"
                   textOverflow="ellipsis"
@@ -176,17 +178,11 @@ const DropZone = ({
             <Image
               src={remotePreview}
               alt="Current logo"
-              h="120px"
-              w="120px"
-              mx="auto"
+              h={height || "120px"}
+              w={width || "full"}
               borderRadius="md"
               objectFit="contain"
             />
-
-            <Text mt={2} fontSize="sm">
-              Current logo
-            </Text>
-
             <Text mt={1} fontSize="xs" color="fg.muted">
               Click or drag to replace
             </Text>

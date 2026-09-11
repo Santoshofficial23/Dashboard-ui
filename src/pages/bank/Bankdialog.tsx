@@ -91,7 +91,7 @@ const BankFormDialog = ({ isOpen, onClose, selectedBankId }: DialogProps) => {
       logo: data.logo,
     };
 
-    if (isEdit) {
+    if (isEdit && selectedBankId) {
       updateBank(
         { id: selectedBankId, data: { ...formattedData, status: true } },
         {
@@ -167,7 +167,9 @@ const BankFormDialog = ({ isOpen, onClose, selectedBankId }: DialogProps) => {
               control={control}
               label="Logo"
               isMulti
-              maxSize=""
+              height="120px"
+              width="100%"
+              maxSize="1 *1024 *1024"
               maxFiles={1}
               filePath={logoFilePath}
             />

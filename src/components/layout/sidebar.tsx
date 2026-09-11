@@ -8,10 +8,11 @@ import {
 } from "@chakra-ui/react";
 import {
   LayoutDashboard,
-  Users,
+  // Users,
   LandmarkIcon,
   Settings,
   LogOut,
+  Menu,
 } from "lucide-react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { removeToken } from "../../utils/token/tokenkey";
@@ -64,10 +65,10 @@ const Sidebar = () => {
         </NavItem>
 
         <NavItem
-          to={NAVIGATION_ROUTES.USER}
-          icon={<Users size={18} />}
+          to={NAVIGATION_ROUTES.MENU}
+          icon={<Menu size={18} />}
         >
-          Users
+          Menu Setup
         </NavItem>
         <NavItem
           to={NAVIGATION_ROUTES.BANK}
