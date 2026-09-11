@@ -1,5 +1,5 @@
 import { Flex, Input, InputGroup } from "@chakra-ui/react";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { useSearchParams } from "react-router-dom";
 
@@ -15,28 +15,12 @@ const SearchBar = ({
   defaultValues = "",
   placeholder = "Search",
 }: SearchBarProps) => {
-  const initialRender = useRef(true);
-
   const [searchParams] = useSearchParams();
 
-  const searchKeyword = searchParams?.get("q") ?? "";
-
-  const [value, setValue] = useState("");
-
-  useEffect(() => {
-    if (value !== defaultValues) {
-      setValue(defaultValues);
-    }   
-  }, [defaultValues]);
-
-  useEffect(() => {
-    if (initialRender.current && searchKeyword?.length) {
-      if (!value || value == "") {
-        setValue(searchKeyword);
-        initialRender.current = false;
-      }
-    }
-  }, [searchKeyword]);
+  // Seed from the `?q=` URL param when present, otherwise the default value.
+  const [value, setValue] = useState(
+    () => searchParams.get("q") || defaultValues,
+  );
 
   return (
     <Flex gap={4} flex={1} maxW={{ lg: "330px" }}>

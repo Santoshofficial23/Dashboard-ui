@@ -23,17 +23,13 @@ const MenuTable = () => {
 
   const { open, onOpen, onClose } = useDisclosure();
 
-  const { data, isLoading, isFetching } = useFetchMenu({
-    payload,
-  });
+  const { data, isLoading, isFetching } = useFetchMenu(payload);
 
-  // Add Menu
   const handleAddMenu = () => {
     setSelectedMenuId(null);
     onOpen();
   };
 
-  // Edit Menu
   const handleEditMenu = (id: string) => {
     setSelectedMenuId(id);
     onOpen();
@@ -116,7 +112,6 @@ const MenuTable = () => {
         totalCount={data?.totalCount ?? 0}
         payload={payload}
         setPayload={setPayload}
-        searchPlaceholder="Search menu..."
       />
     </>
   );
