@@ -1,9 +1,8 @@
-import { Box, HStack, Stack, Switch, Text } from "@chakra-ui/react";
+import { Box, Button, HStack, Stack, Switch, Text } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, useForm } from "react-hook-form";
 import { useEffect } from "react";
 import { useQueryClient } from "@tanstack/react-query";
-import CommonDialog from "../../components/CommonDialog/CommonDialog";
 import InputField from "../../components/input";
 import SelectField from "../../components/select/SelectField";
 import { INSTITUTION_TYPE_OPTIONS } from "../../constants/Bankoptions";
@@ -16,8 +15,10 @@ import { useFetchBankById } from "../../components/hooks/bank/useFetchbankById";
 import { useUpdateBank } from "../../components/hooks/bank/useUpdatebank";
 import DropField from "../../components/Dropzone/DropField";
 import { getFilePath } from "../../services/api/file.api";
+import CommonDrawer from "../../components/Drawer/Commondrawer";
 type DialogProps = {
   isOpen: boolean;
+  open: boolean;
   onClose: () => void;
   selectedBankId: string | null;
 };
@@ -40,9 +41,8 @@ const emptyBank: BankFormData = {
   logo: [],
 };
 
-const BankFormDialog = ({ isOpen, onClose, selectedBankId }: DialogProps) => {
+const Bankdrawer = ({ open, isOpen, onClose, selectedBankId }: DialogProps) => {
   const isEdit = selectedBankId !== null;
-  // console.log(selectedBankId,isEdit);
   const { control, reset, handleSubmit } = useForm<BankFormData>({
     resolver: yupResolver(bankSchema),
     mode: "onChange",
@@ -93,7 +93,14 @@ const BankFormDialog = ({ isOpen, onClose, selectedBankId }: DialogProps) => {
 
     if (isEdit && selectedBankId) {
       updateBank(
-        { id: selectedBankId, data: { ...formattedData, status: true } },
+        {
+          id: selectedBankId,
+          data: {
+            ...formattedData,
+            active: bankData?.active ?? true,
+            status: true,
+          },
+        },
         {
           onSuccess: () => {
             reset(emptyBank);
@@ -122,23 +129,41 @@ const BankFormDialog = ({ isOpen, onClose, selectedBankId }: DialogProps) => {
 
   return (
     <>
-      <Box pt={10}>
-        <CommonDialog
-          isOpen={isOpen}
-          onClear={handleClear}
-          onClose={handleClose}
-          title={isEdit ? "Edit Bank" : "Add Bank"}
-          submitButton={
-            isBankLoading
+     <Box as="form" id="bank-form" onSubmit={handleSubmit(onSubmit)} pt={10}>
+      <CommonDrawer
+      size="md"
+      placement="end"
+      open={open}
+      onClose={handleClose}
+      title={selectedBankId ? "Edit Bank" : "Add Bank"}
+      footer={
+        <HStack justify="flex-end" gap={4} w="full">
+          <Button variant="outline" type="button" onClick={handleClear}>
+            Clear
+          </Button>
+
+          <Button variant="outline" type="button" onClick={handleClose}>
+            Close
+          </Button>
+
+          <Button
+            bg="blue.700"
+            color="white"
+            type="submit"
+            form="bank-form"
+            loading={isBankLoading}
+          >
+            {isBankLoading
               ? "Loading..."
-              : isCreating || isUpdating
-                ? isEdit
+              : isCreating
+                ? "Adding..."
+                : isUpdating
                   ? "Updating..."
-                  : "Adding..."
-                : "Submit"
-          }
-          onSubmit={handleSubmit(onSubmit)}
-        >
+                  : "Submit"}
+          </Button>
+        </HStack>
+      }
+    >
           <Stack gap={4}>
             <InputField
               control={control}
@@ -152,6 +177,7 @@ const BankFormDialog = ({ isOpen, onClose, selectedBankId }: DialogProps) => {
               label="Bank Code"
               name="bankCode"
               placeholder="Enter Bank Code"
+              disabled={isEdit}
             />
 
             <SelectField
@@ -216,10 +242,10 @@ const BankFormDialog = ({ isOpen, onClose, selectedBankId }: DialogProps) => {
               />
             </HStack>
           </Stack>
-        </CommonDialog>
+      </CommonDrawer> 
       </Box>
     </>
   );
 };
 
-export default BankFormDialog;
+export default Bankdrawer;

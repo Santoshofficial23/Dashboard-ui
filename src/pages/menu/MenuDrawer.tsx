@@ -185,7 +185,7 @@ const MenuDrawer = ({ open, onClose, selectedMenuId }: MenuDrawerProps) => {
           </Button>
 
           <Button
-            bg="purple.600"
+            bg="blue.700"
             color="white"
             type="submit"
             form="menu-form"

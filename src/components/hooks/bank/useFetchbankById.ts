@@ -11,13 +11,13 @@ const getBankById = (id: string) => {
 };
 
 export const useFetchBankById = (
-  id: string,
-  enabled = true
+  id: string | null,
+  enabled = true,
 ) => {
   return useQuery({
     queryKey: ["bank", id],
 
-    queryFn: () => getBankById(id),
+    queryFn: () => getBankById(id ?? ""),
 
     enabled: enabled && !!id,
 

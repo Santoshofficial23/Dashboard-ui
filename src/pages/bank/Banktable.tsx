@@ -2,7 +2,6 @@ import { useMemo, useState, useCallback } from "react";
 import { Button, Flex, HStack, useDisclosure } from "@chakra-ui/react";
 import { Pencil, Trash2 } from "lucide-react";
 import type { Bank } from "../../types/type";
-import BankFormDialog from "../../pages/bank/Bankdialog";
 import { useDeleteBank } from "../../components/hooks/bank/useDeletebank";
 import { useFetchBank, useToggleBank } from "../../components/hooks/bank/useFetchbank";
 import type { TableColumnDef } from "../../components/table/Tablecomp";
@@ -10,6 +9,7 @@ import { INSTITUTION_TYPE_OPTIONS } from "../../constants/Bankoptions";
 import Deletedialog from "./Deletedialog";
 import TableComp from "../../components/table/Tablecomp";
 import { SwitchComp } from "../../components/ui/switch-button";
+import Bankdrawer from "./Bankdrawer";
 
 
 const BankTable = () => {
@@ -111,12 +111,7 @@ const handleToggleBank = (id:string)=>{
             <Button
               size="xs"
               bg={"blue.600"}
-              onClick={() => {
-                if (row.original.id === undefined) return;
-                setSelectedBankId(row.original.id);
-                onBankDialogOpen()
-               
-              }}
+               onClick={() => {setSelectedBankId(String(row.original.id)); onBankDialogOpen();}}
             >
               <Pencil size={14} />
               Edit
@@ -145,7 +140,7 @@ const handleToggleBank = (id:string)=>{
     <>
       <Flex justify="flex-end">
         <Button
-          bg={"purple.600"}
+          bg={"blue.700"}
           onClick={() => {
             setSelectedBankId(null);
             onBankDialogOpen()
@@ -155,13 +150,11 @@ const handleToggleBank = (id:string)=>{
           Add Bank
         </Button>
       </Flex>
-      <BankFormDialog
-        isOpen={bankDialogOpen}
+      <Bankdrawer
+      open ={bankDialogOpen}
+        onClose={onBankDialogClose}
         selectedBankId={selectedBankId}
-        onClose={() => {
-          onBankDialogClose();
-          setSelectedBankId(null);
-        }}
+        isOpen={bankDialogOpen}
       />
 
       <Deletedialog

@@ -6,42 +6,64 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
+
 import {
   LayoutDashboard,
-  // Users,
   LandmarkIcon,
   Settings,
   LogOut,
   Menu,
 } from "lucide-react";
+
 import { NavLink, useNavigate } from "react-router-dom";
+import type { ReactNode } from "react";
+
 import { removeToken } from "../../utils/token/tokenkey";
-import { removeUserInfo, getUserInfo } from "../../utils/token/userinfo";
+import {
+  removeUserInfo,
+  getUserInfo,
+} from "../../utils/token/userinfo";
+
 import { NAVIGATION_ROUTES } from "../../constants/routes";
 
-const Sidebar = () => {
+type SidebarProps = {
+  collapsed: boolean;
+};
+
+const Sidebar = ({ collapsed }: SidebarProps) => {
   const navigate = useNavigate();
-  const userInfo = getUserInfo() || { username: "", email: "" };
+
+  const userInfo = getUserInfo() || {
+    username: "",
+    email: "",
+  };
 
   const handleLogout = () => {
     removeToken();
     removeUserInfo();
-    navigate("/LOGIN", { replace: true });
+
+    navigate(NAVIGATION_ROUTES.LOGIN, {
+      replace: true,
+    });
   };
 
   return (
     <Box
-      w="250px"
+      w={collapsed ? "0px" : "250px"}
       h="100vh"
       bg="bg.emphasized"
       color="black"
-      p={5}
+      p={collapsed ? 0 : 5}
       position="fixed"
       left={0}
       top={0}
       display="flex"
       flexDirection="column"
+      overflow="hidden"
+      transition="width 0.25s ease-in-out, padding 0.25s ease-in-out"
+      zIndex={1000}
     >
+      {/* Logo */}
       <Flex align="center" gap={3} mb={10}>
         <Image
           src="/hero.png"
@@ -49,13 +71,19 @@ const Sidebar = () => {
           w="50px"
           h="50px"
           objectFit="contain"
+          flexShrink={0}
         />
 
-        <Text fontSize="xl" fontWeight="bold">
+        <Text
+          fontSize="xl"
+          fontWeight="bold"
+          whiteSpace="nowrap"
+        >
           TBC NEPAL
         </Text>
       </Flex>
 
+      {/* Navigation */}
       <Stack gap={2} flex={1}>
         <NavItem
           to={NAVIGATION_ROUTES.DASHBOARD}
@@ -70,11 +98,12 @@ const Sidebar = () => {
         >
           Menu Setup
         </NavItem>
+
         <NavItem
           to={NAVIGATION_ROUTES.BANK}
           icon={<LandmarkIcon size={18} />}
         >
-          Bank setup
+          Bank Setup
         </NavItem>
 
         <NavItem
@@ -85,6 +114,7 @@ const Sidebar = () => {
         </NavItem>
       </Stack>
 
+      {/* Profile */}
       <Box
         bg="whiteAlpha.600"
         p={4}
@@ -93,22 +123,24 @@ const Sidebar = () => {
       >
         <Flex align="center" gap={3} mb={3}>
           <Image
-            height={10}
+            h={10}
             w={10}
             borderRadius="50%"
             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXJNyWgnnidyZtwYgTLuwl1gUEpIwctB2HQDeDRdydiA&s=10"
             alt="Admin Avatar"
           />
+
           <Box flex={1}>
             <Text fontWeight="bold" fontSize="sm">
-              {/* {userInfo.username || "Super Admin"} */}
               Super Admin
             </Text>
-            <Text fontSize="md" color="gray.600" truncate>
-              {userInfo.username || "email@example.com"}
+
+            <Text fontSize="sm" color="gray.600" truncate>
+              {userInfo.username ? userInfo.username : "No username provided"}
             </Text>
           </Box>
         </Flex>
+
         <Button
           w="full"
           size="sm"
@@ -127,8 +159,8 @@ const Sidebar = () => {
 
 type NavItemProps = {
   to: string;
-  icon: React.ReactNode;
-  children: React.ReactNode;
+  icon: ReactNode;
+  children: ReactNode;
 };
 
 const NavItem = ({
@@ -145,15 +177,18 @@ const NavItem = ({
           px={4}
           py={3}
           borderRadius="md"
-          
-          color={isActive ?'whiteAlpha.800' : "black"}
-          bg={isActive ? "blue.500" : "bg.warning"}
-          
+          color={isActive ? "white" : "black"}
+          bg={isActive ? "blue.500" : "transparent"}
+          transition="background 0.2s ease"
+          _hover={{
+            bg: isActive ? "blue.500" : "gray.200",
+          }}
         >
           {icon}
-          <Text  color={isActive ?'whiteAlpha.800' : "black"}>
 
-            {children}</Text>
+          <Text color={isActive ? "white" : "black"}>
+            {children}
+          </Text>
         </Flex>
       )}
     </NavLink>

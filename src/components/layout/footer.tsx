@@ -1,12 +1,13 @@
-import { Box, Text } from '@chakra-ui/react'
+import { Flex, Text } from '@chakra-ui/react'
 
 const footer = () => {
   return (
-    <Box bg={'blue.200'} color={'whiteAlpha.400'} textAlign={'center'} pb={10} fontWeight={'bold'}>
-        <Text textAlign={'center'}>
+    <Flex bg="blue.100" 
+        color="gray.700" align='center' h={16} fontWeight={'bold'} justify='center'  >
+        <Text>
           All right reserved 2026
         </Text>
-      </Box>
+      </Flex>
   )
 }
 

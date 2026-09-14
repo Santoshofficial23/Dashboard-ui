@@ -1,11 +1,54 @@
-import {Flex, Text } from '@chakra-ui/react'
+import { Button, Box, Flex, Text } from "@chakra-ui/react";
+import {
+  PanelRightOpen,
+  PanelRightClose,
+} from "lucide-react";
 
-const Navbar = () => {
+type NavbarProps = {
+  onToggleCollapse: () => void;
+  collapsed: boolean;
+};
+
+const Navbar = ({
+  onToggleCollapse,
+  collapsed,
+}: NavbarProps) => {
   return (
-    <Flex bg={'blue.200'} color={'whiteAlpha.400'} justify={'center'} alignItems={'center'} gap={14} fontWeight={'bold'} h={16}>
-        <Text fontSize={'2xl'}> Trust Bridge Capital Nepal</Text>    
-        </Flex>
-  )
-}
+    <Box>
+      <Button
+        position="fixed"
+        top="16px"
+        left={collapsed ? "12px" : "245px"}
+        // zIndex={1100}
+        variant="ghost"
+        bg="transparent"
+        color="gray.700"
+        onClick={onToggleCollapse}
+        p={2}
+        minW="auto"
+        transition="left 0.25s ease-in-out"
+      >
+        {collapsed ? (
+          <PanelRightOpen size={22} />
+        ) : (
+          <PanelRightClose size={22} />
+        )}
+      </Button>
+      <Flex
+        bg="blue.100"
+        color="gray.800"
+        justify="center"
+        align="center"
+        h="64px"
+        borderBottom="1px solid"
+        borderColor="gray.200"
+      >
+        <Text fontSize="2xl" fontWeight="bold">
+          Trust Bridge Capital Nepal
+        </Text>
+      </Flex>
+    </Box>
+  );
+};
 
-export default Navbar
+export default Navbar;

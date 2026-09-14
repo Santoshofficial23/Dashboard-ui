@@ -94,7 +94,7 @@ const MenuTable = () => {
   return (
     <>
       <Flex justify="flex-end" mb={4}>
-        <Button bg="purple.600" color="white" onClick={handleAddMenu}>
+        <Button bg="blue.700" color="white" onClick={handleAddMenu}>
           Add Menu
         </Button>
       </Flex>
