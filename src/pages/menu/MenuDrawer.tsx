@@ -1,4 +1,13 @@
-import { Box, Button, Stack, HStack, Text, VStack, Tabs, Checkbox } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Stack,
+  HStack,
+  Text,
+  VStack,
+  Tabs,
+  Checkbox,
+} from "@chakra-ui/react";
 import { useForm, Controller, useFieldArray } from "react-hook-form";
 import { useEffect } from "react";
 import InputField from "../../components/input";
@@ -51,10 +60,7 @@ const MenuDrawer = ({ open, onClose, selectedMenuId }: MenuDrawerProps) => {
   const moduleType = watch("moduleType");
 
   const { mutate: createMenu, isPending: isCreating } = useCreateMenu();
-const {
-  mutate: updateMenu,
-  isPending: isUpdating,
-} = useUpdateMenu();
+  const { mutate: updateMenu, isPending: isUpdating } = useUpdateMenu();
 
   const { data: menuData, isLoading: isMenuLoading } = useFetchMenuById(
     selectedMenuId ?? "",
@@ -123,44 +129,44 @@ const {
   };
 
   const onSubmit = (data: MenuFormData) => {
-  const payload = {
-    ...data,
-    active: data.active ?? true,
-    status: data.status ?? true,
-    displayOrder: Number(data.displayOrder ?? 0),
-    subMenus: data.subMenus ?? [],
+    const payload = {
+      ...data,
+      active: data.active ?? true,
+      status: data.status ?? true,
+      displayOrder: Number(data.displayOrder ?? 0),
+      subMenus: data.subMenus ?? [],
+    };
+
+    if (selectedMenuId) {
+      updateMenu(
+        {
+          id: selectedMenuId,
+          ...payload,
+        },
+        {
+          onSuccess: () => {
+            reset(defaultValues);
+            onClose();
+          },
+          onError: (error) => {
+            console.error("Update menu error:", error);
+          },
+        },
+      );
+
+      return;
+    }
+
+    createMenu(payload, {
+      onSuccess: () => {
+        reset(defaultValues);
+        onClose();
+      },
+      onError: (error) => {
+        console.error("Create menu error:", error);
+      },
+    });
   };
-
-  if (selectedMenuId) {
-    updateMenu(
-      {
-        id: selectedMenuId,
-        ...payload,
-      },
-      {
-        onSuccess: () => {
-          reset(defaultValues);
-          onClose();
-        },
-        onError: (error) => {
-          console.error("Update menu error:", error);
-        },
-      },
-    );
-
-    return;
-  }
-
-  createMenu(payload, {
-    onSuccess: () => {
-      reset(defaultValues);
-      onClose();
-    },
-    onError: (error) => {
-      console.error("Create menu error:", error);
-    },
-  });
-};
   return (
     <CommonDrawer
       size="full"
@@ -168,8 +174,35 @@ const {
       open={open}
       onClose={handleClose}
       title={selectedMenuId ? "Edit Menu" : "Add Menu"}
+      footer={
+        <HStack justify="flex-end" gap={4} w="full">
+          <Button variant="outline" type="button" onClick={handleClear}>
+            Clear
+          </Button>
+
+          <Button variant="outline" type="button" onClick={handleClose}>
+            Close
+          </Button>
+
+          <Button
+            bg="purple.600"
+            color="white"
+            type="submit"
+            form="menu-form"
+            loading={isMenuLoading}
+          >
+            {isMenuLoading
+              ? "Loading..."
+              : isCreating
+                ? "Adding..."
+                : isUpdating
+                  ? "Updating..."
+                  : "Submit"}
+          </Button>
+        </HStack>
+      }
     >
-      <Box as="form" onSubmit={handleSubmit(onSubmit)} p={6}>
+      <Box as="form" id="menu-form" onSubmit={handleSubmit(onSubmit)} p={6}>
         <Stack gap={6}>
           <Box>
             <Tabs.Root
@@ -220,7 +253,7 @@ const {
                     name="menuCode"
                     control={control}
                     label="Menu Code"
-                    placeholder="MASTER_DATA"
+                    placeholder="eg:MASTER_DATA"
                   />
                 </Box>
               </HStack>
@@ -304,14 +337,25 @@ const {
             </VStack>
           </Box>
 
-          <HStack justify="flex-end" gap={4} pt={6} borderTopWidth="1px" borderColor="gray.200">
+          {/* <HStack
+            justify="flex-end"
+            gap={4}
+            pt={6}
+            borderTopWidth="1px"
+            borderColor="gray.200"
+          >
             <Button variant="outline" type="button" onClick={handleClear}>
               Clear
             </Button>
             <Button variant="outline" type="button" onClick={handleClose}>
               Close
             </Button>
-            <Button bg="purple.600" color="white" type="submit" loading={isMenuLoading}>
+            <Button
+              bg="purple.600"
+              color="white"
+              type="submit"
+              loading={isMenuLoading}
+            >
               {isMenuLoading
                 ? "Loading..."
                 : isCreating
@@ -320,7 +364,7 @@ const {
                     ? "Updating..."
                     : "Submit"}
             </Button>
-          </HStack>
+          </HStack> */}
         </Stack>
       </Box>
     </CommonDrawer>

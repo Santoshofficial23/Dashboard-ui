@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { bankApi } from "../../../services/api/apiConfig";
 import { API_ENDPOINTS } from "../../../services/api/api";
-import { showSuccess, showError } from "../../../utils/toaster/notification";
+import { showSuccess} from "../../../utils/toaster/notification";
 
 export type BankFormData = {
   bankCode: string;
@@ -18,7 +18,7 @@ type UpdateBankPayload = BankFormData & {
   id: string;
 };
 
-const createBank = async (data: BankFormData) => {
+const createBank = (data: BankFormData) => {
   const formData = new FormData();
 
   formData.append("bankCode", data.bankCode);
@@ -33,15 +33,15 @@ const createBank = async (data: BankFormData) => {
     }
   });
 
-  const response = await bankApi.post(
+  const response = bankApi.post(
     API_ENDPOINTS.BANK_SETUP.POST,
     formData
   );
 
-  return response.data;
+  return response;
 };
 
-const updateBank = async (data: UpdateBankPayload) => {
+const updateBank = (data: UpdateBankPayload) => {
   const formData = new FormData();
 
   formData.append("id", data.id);
@@ -58,12 +58,12 @@ const updateBank = async (data: UpdateBankPayload) => {
     }
   });
 
-  const response = await bankApi.post(
+  const response = bankApi.post(
     API_ENDPOINTS.BANK_SETUP.POST,
     formData
   );
 
-  return response.data;
+  return response;
 };
 
 export const useCreateBank = () => {
@@ -76,11 +76,7 @@ export const useCreateBank = () => {
       queryClient.invalidateQueries({
         queryKey: ["banks"],
       });
-      showSuccess(response?.message ?? "Bank added successfully");
-    },
-
-    onError: (error) => {
-      showError(error, "Failed to add bank");
+      showSuccess(response? "Bank added successfully" : "Failed to add bank");
     },
   });
 };
@@ -100,11 +96,7 @@ export const useUpdateBank = () => {
       queryClient.invalidateQueries({
         queryKey: ["bank", variables.id],
       });
-      showSuccess(response?.message ?? "Bank updated successfully");
-    },
-
-    onError: (error) => {
-      showError(error, "Failed to update bank");
+      showSuccess(response? "Bank updated successfully" : "Failed to update bank");
     },
   });
 };

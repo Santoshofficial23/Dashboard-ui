@@ -22,7 +22,6 @@ export const useLogin = () => {
 
       setToken(token);
       
-      // Store user information
       const email = response.data.data.email || response.data.data.user?.email || "";
       setUserInfo({
         username: variables.username,

@@ -104,7 +104,7 @@ const Sidebar = () => {
               {/* {userInfo.username || "Super Admin"} */}
               Super Admin
             </Text>
-            <Text fontSize="xs" color="gray.600" truncate>
+            <Text fontSize="md" color="gray.600" truncate>
               {userInfo.username || "email@example.com"}
             </Text>
           </Box>

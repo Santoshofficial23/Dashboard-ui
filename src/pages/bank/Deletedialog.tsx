@@ -15,7 +15,7 @@ const Confirmationdialog = ( {
   onClear,
   onDelete,
   message,
-  isDeleting = false,
+  isDeleting = true,
 }: ConfirmationDialogProps) => {
   return (
     <CommonDialog

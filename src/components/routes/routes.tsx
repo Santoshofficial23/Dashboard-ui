@@ -1,6 +1,6 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import PublicRoute from "./publicroute";
-import Loginpage from "../../pages/auth/Login";
+import Loginpage from "../../pages/auth/login";
 import ProtectedRoute from "./protectedroute";
 import DashboardLayout from "../layout/dashboard";
 import Userpage from "../../pages/menu/MenuPage";

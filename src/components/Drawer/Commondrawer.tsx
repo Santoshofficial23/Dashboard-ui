@@ -1,6 +1,5 @@
 import {
   Drawer,
-  Button,
   Portal,
 //   Text,
 } from "@chakra-ui/react";
@@ -10,6 +9,7 @@ type CommonDrawerProps = {
   open?: boolean;
   onClose: () => void;
   title: string;
+  footer?: ReactNode;
   children?: ReactNode;
   placement?: "start" | "end" | "top" | "bottom";
   size?: "xs" | "sm" | "md" | "lg" | "xl" | "full";
@@ -19,9 +19,11 @@ const CommonDrawer = ({
   open,
   onClose,
   title,
+  footer,
   children,
   placement = "end",
   size = "md",
+  
 }: CommonDrawerProps) => {
   return (
     <Drawer.Root
@@ -34,6 +36,7 @@ const CommonDrawer = ({
       placement={placement}
       size={size}
     >
+
       <Portal>
         <Drawer.Backdrop />
 
@@ -41,7 +44,6 @@ const CommonDrawer = ({
           <Drawer.Content width={'90%'} ml={250}>
             <Drawer.Header>
               <Drawer.Title>{title}</Drawer.Title>
-              {/* <Text>kjsjkd</Text> */}
             </Drawer.Header>
 
             <Drawer.Body>
@@ -49,9 +51,7 @@ const CommonDrawer = ({
             </Drawer.Body>
 
             <Drawer.Footer>
-              <Button variant="outline" onClick={onClose}>
-                Cancel
-              </Button>
+              {footer}
             </Drawer.Footer>
 
             <Drawer.CloseTrigger />
@@ -62,4 +62,4 @@ const CommonDrawer = ({
   );
 };
 
-export default CommonDrawer;
+export default CommonDrawer;    

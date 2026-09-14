@@ -1,7 +1,6 @@
 import { useMemo, useState } from "react";
 import { Button, Flex, HStack, useDisclosure } from "@chakra-ui/react";
-import { Pencil, Trash2 } from "lucide-react";
-
+import { Pencil } from "lucide-react";
 import TableComp, {
   type TableColumnDef,
 } from "../../components/table/Tablecomp";
@@ -19,7 +18,7 @@ const MenuTable = () => {
     size: 10,
     searchValue: "",
   });
-  const { mutate: toggleMenu} = useToggleMenu();
+  const { mutate: toggleMenu } = useToggleMenu();
   const [selectedMenuId, setSelectedMenuId] = useState<string | null>(null);
   const { open, onOpen, onClose } = useDisclosure();
   const { data, isLoading, isFetching } = useFetchMenu(payload);
@@ -27,14 +26,6 @@ const MenuTable = () => {
   const handleAddMenu = () => {
     setSelectedMenuId(null);
     onOpen();
-  };
-
-  const handleEditMenu = (id: string) => {
-    setSelectedMenuId(id);
-    onOpen();
-  };
-  const handleToggleMenu = (id: string) => {
-    toggleMenu(id);
   };
 
   const columns = useMemo<TableColumnDef<MenuResponseType>[]>(
@@ -67,7 +58,8 @@ const MenuTable = () => {
           <SwitchComp
             checked={row.original.active}
             onCheckedChange={() => {
-              handleToggleMenu(String(row.original.id));
+              setSelectedMenuId(String(row.original.id));
+              toggleMenu(String(row.original.id));
             }}
           />
         ),
@@ -82,21 +74,21 @@ const MenuTable = () => {
               size="xs"
               bg="blue.600"
               color="white"
-              onClick={() => handleEditMenu(row.original.id ?? "")}
+              onClick={() => {setSelectedMenuId(String(row.original.id)); onOpen();}}
             >
               <Pencil size={14} />
               Edit
             </Button>
 
-            <Button size="xs" bg="red.600" color="white">
+            {/* <Button size="xs" bg="red.600" color="white">
               <Trash2 size={14} />
               Delete
-            </Button>
+            </Button> */}
           </HStack>
         ),
       },
     ],
-    [payload.page, payload.size],
+    [onOpen, payload.page, payload.size, toggleMenu],
   );
 
   return (

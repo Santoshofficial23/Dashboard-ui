@@ -8,28 +8,27 @@ export const useDeleteBank = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (id: string) => {
+    mutationFn:  (id: string) => {
       const formData = new FormData();
 
       formData.append("id", String(id));
 
-      const response = await bankApi.post(
-        API_ENDPOINTS.BANK_SETUP.DELETE,
+      const response =bankApi.post(
+         API_ENDPOINTS.BANK_SETUP.DELETE,
         {
           data: {
             id,
           },
         }
       );
-// console.log(response)
-      return response.data;
+      return response;
     },
 
     onSuccess: (response) => {
       queryClient.invalidateQueries({
         queryKey: ["banks"],
       });
-      showSuccess(response?.message ?? "Bank deleted successfully");
+      showSuccess(response? "Bank deleted successfully" : "Failed to delete bank");
     },
 
     onError: (error) => {

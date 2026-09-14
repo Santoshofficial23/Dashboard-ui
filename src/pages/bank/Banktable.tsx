@@ -22,7 +22,6 @@ const BankTable = () => {
   const [size, setSize] = useState(4)
   const [searchValue, setSearchValue] = useState("");
   const [selectedBankId, setSelectedBankId] = useState<string | null>(null);
-  
   const { data, isLoading, isFetching } = useFetchBank({
     page,
     size,
@@ -42,13 +41,18 @@ const handleToggleBank = (id:string)=>{
   }, [onDeleteDialogOpen]);
 
   const handleDelete = () => {
-    if (deleteId === null) return;
+    if (!deleteId) return;
+
     deleteBank(deleteId, {
       onSuccess: () => {
-        setDeleteId(null);
+        setTimeout(() => {
+          onDeleteDialogClose();
+          setDeleteId(null);
+        }, 1000);
       },
     });
   };
+
 
   const columns = useMemo<TableColumnDef<Bank>[]>(
     () => [
@@ -134,7 +138,7 @@ const handleToggleBank = (id:string)=>{
         ),
       },
     ],
-    [handleDeleteClick, onBankDialogOpen ],
+    [handleDeleteClick, onBankDialogOpen],
   );
 
   return (
@@ -168,8 +172,8 @@ const handleToggleBank = (id:string)=>{
         isDeleting={isDeleting}
         onClear={() => setDeleteId(null)}
       />
-      <TableComp<Bank>
-        data={data?.data?.content ?? []} 
+      <TableComp
+        data={data?.data ?? []}
         columns={columns}
         loading={isLoading || isFetching}
         page={page}

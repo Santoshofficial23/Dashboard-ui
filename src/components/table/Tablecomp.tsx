@@ -76,10 +76,15 @@ const TableComp = <T extends RowData>({
         />
       )}
 
-      <Box borderWidth="1px" rounded="lg" overflow="hidden" bg="bg.panel">
-        <Box overflowX="auto">
-          <Table.Root interactive={!isEmpty} size="sm" variant="outline">
-            <Table.Header>
+      <Box borderWidth="1px" rounded="lg"  bg="bg.panel">
+        <Box maxH="400px" overflowY="auto">
+          <Table.Root
+            minW={"900px"}
+            interactive={!isEmpty}
+            size="sm"
+            variant="outline"
+          >
+            <Table.Header position="sticky" top={0} zIndex={1} bg="gray.800">
               {table.getHeaderGroups().map((headerGroup) => (
                 <Table.Row key={headerGroup.id} bg="bg.subtle">
                   {headerGroup.headers.map((header) => (

@@ -20,9 +20,6 @@ const SubMenuForm = ({ control, index, onRemove }: SubMenuFormProps) => {
       subMenuPrivileges.includes(permission.value),
     );
 
-//   const handleEnableAll = (checked: boolean) => {
-//   };
-
   return (
     <Box borderWidth="1px" borderRadius="md" p={4} borderColor="gray.200">
       <HStack justify="space-between" mb={3}>
