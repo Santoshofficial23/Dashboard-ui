@@ -179,11 +179,6 @@ const MenuDrawer = ({ open, onClose, selectedMenuId }: MenuDrawerProps) => {
           <Button variant="outline" type="button" onClick={handleClear}>
             Clear
           </Button>
-
-          <Button variant="outline" type="button" onClick={handleClose}>
-            Close
-          </Button>
-
           <Button
             bg="blue.700"
             color="white"
@@ -336,35 +331,6 @@ const MenuDrawer = ({ open, onClose, selectedMenuId }: MenuDrawerProps) => {
               ))}
             </VStack>
           </Box>
-
-          {/* <HStack
-            justify="flex-end"
-            gap={4}
-            pt={6}
-            borderTopWidth="1px"
-            borderColor="gray.200"
-          >
-            <Button variant="outline" type="button" onClick={handleClear}>
-              Clear
-            </Button>
-            <Button variant="outline" type="button" onClick={handleClose}>
-              Close
-            </Button>
-            <Button
-              bg="purple.600"
-              color="white"
-              type="submit"
-              loading={isMenuLoading}
-            >
-              {isMenuLoading
-                ? "Loading..."
-                : isCreating
-                  ? "Adding..."
-                  : isUpdating
-                    ? "Updating..."
-                    : "Submit"}
-            </Button>
-          </HStack> */}
         </Stack>
       </Box>
     </CommonDrawer>

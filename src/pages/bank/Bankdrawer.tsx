@@ -141,11 +141,6 @@ const Bankdrawer = ({ open, isOpen, onClose, selectedBankId }: DialogProps) => {
           <Button variant="outline" type="button" onClick={handleClear}>
             Clear
           </Button>
-
-          <Button variant="outline" type="button" onClick={handleClose}>
-            Close
-          </Button>
-
           <Button
             bg="blue.700"
             color="white"

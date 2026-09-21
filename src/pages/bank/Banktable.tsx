@@ -118,7 +118,7 @@ const handleToggleBank = (id:string)=>{
             </Button>
             <Button
               size="xs"
-              bg={"red.600"}
+              bg={"danger.600"}
               onClick={() => {
                 if (row.original.id === undefined) {
                   return;

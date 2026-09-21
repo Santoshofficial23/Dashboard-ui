@@ -1,11 +1,11 @@
 import { TOKEN_KEY } from "./../../utils/token/token";
 
 export const setToken = (token: string) => {
-  localStorage.setItem(TOKEN_KEY, token);
+  sessionStorage.setItem(TOKEN_KEY, token);
 };
 
 export const getToken = () => {
-  const token = localStorage.getItem(TOKEN_KEY);
+  const token = sessionStorage.getItem(TOKEN_KEY);
 
   if (!token || token === "undefined" || token === "null") {
     return null;
@@ -15,7 +15,7 @@ export const getToken = () => {
 };
 
 export const removeToken = () => {
-  localStorage.removeItem(TOKEN_KEY);
+  sessionStorage.removeItem(TOKEN_KEY);
 };
 
 export const hasToken = () => {

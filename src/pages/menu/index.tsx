@@ -10,7 +10,6 @@ import type { MenuResponseType } from "@/types/type";
 import type { FilterPayloadType } from "@/types/index";
 import { SwitchComp } from "../../components/ui/switch-button";
 import { useToggleMenu } from "../../components/hooks/menu/useFetchmenu";
-// import { QueryClient } from "@tanstack/react-query";
 
 const MenuTable = () => {
   const [payload, setPayload] = useState<FilterPayloadType>({

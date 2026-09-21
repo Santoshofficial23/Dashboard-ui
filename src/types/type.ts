@@ -4,9 +4,33 @@ export type LoginFormData = {
   password: string;
 };
 
+export type ExpenseFormData = {
+  title: string;
+  amount: number;
+  type: string;
+  category: string;
+  date: string;
+  descriptions: string;
+};
+
+export type Expense = {
+  id: number;
+  title: string;
+  amount: number;
+  type: string;
+  category: string;
+  date: string;
+  description: string;
+};
+
 export const MODULE_TYPE = {
   CRM: "CRM",
   CMS: "CMS",
+} as const;
+
+export const MODULE_TYPE_EXPENSE ={
+  INCOME: "INCOME",
+  EXPENSE:"EXPENSE"
 } as const;
 
 export type MODULE_TYPE =
@@ -24,6 +48,7 @@ export type LoginResponse = {
   user?: {
     id: number;
     username: string;
+    Email: string;
   };
 };
 

@@ -1,14 +1,15 @@
 import {
+  Button,
   Drawer,
   Portal,
-//   Text,
 } from "@chakra-ui/react";
+import { CircleX} from "lucide-react";
 import type { ReactNode } from "react";
 
 type CommonDrawerProps = {
   open?: boolean;
   onClose: () => void;
-  title: string;
+  title?: string;
   footer?: ReactNode;
   children?: ReactNode;
   placement?: "start" | "end" | "top" | "bottom";
@@ -43,7 +44,10 @@ const CommonDrawer = ({
         <Drawer.Positioner>
           <Drawer.Content width={'90%'} ml={250}>
             <Drawer.Header>
-              <Drawer.Title>{title}</Drawer.Title>
+              <Drawer.Title ml={6}>{title}</Drawer.Title>
+              <Button variant="surface" onClick={onClose} _hover={{ bg: "red.100" }} p={2} borderRadius="md">
+                <CircleX size={20} color="red" />
+              </Button>
             </Drawer.Header>
 
             <Drawer.Body>

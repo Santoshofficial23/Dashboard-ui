@@ -2,7 +2,7 @@ import { Field } from "@chakra-ui/react";
 import type { ReactNode } from "react";
 
 type FormWrapperProps = {
-  label: string;
+  label?: React.ReactNode;
   errorText?: string;
   children: ReactNode;
   required?: boolean;

@@ -6,11 +6,11 @@ export type UserInfo = {
 };
 
 export const setUserInfo = (userInfo: UserInfo) => {
-  localStorage.setItem(USER_INFO_KEY, JSON.stringify(userInfo));
+  sessionStorage.setItem(USER_INFO_KEY, JSON.stringify(userInfo));
 };
 
 export const getUserInfo = (): UserInfo | null => {
-  const userInfo = localStorage.getItem(USER_INFO_KEY);
+  const userInfo = sessionStorage.getItem(USER_INFO_KEY);
 
   if (!userInfo || userInfo === "undefined" || userInfo === "null") {
     return null;
@@ -24,5 +24,5 @@ export const getUserInfo = (): UserInfo | null => {
 };
 
 export const removeUserInfo = () => {
-  localStorage.removeItem(USER_INFO_KEY);
+sessionStorage.removeItem(USER_INFO_KEY);
 };

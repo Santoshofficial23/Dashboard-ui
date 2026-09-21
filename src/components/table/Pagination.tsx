@@ -4,7 +4,6 @@ import {
   IconButton,
   Text,
 } from "@chakra-ui/react";
-
 import {
   ArrowLeft,
   ArrowRight,
@@ -81,10 +80,7 @@ const Pagination = ({
     event: React.ChangeEvent<HTMLSelectElement>,
   ) => {
     const newSize = Number(event.target.value);
-
     onPageSizeChange(newSize);
-
-    // Reset to page 1 when page size changes
     onPageChange(1);
   };
 

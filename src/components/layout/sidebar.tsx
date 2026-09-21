@@ -3,6 +3,7 @@ import {
   Button,
   Flex,
   Image,
+  Separator,
   Stack,
   Text,
 } from "@chakra-ui/react";
@@ -10,9 +11,9 @@ import {
 import {
   LayoutDashboard,
   LandmarkIcon,
-  Settings,
   LogOut,
   Menu,
+  CreditCardPlus,
 } from "lucide-react";
 
 import { NavLink, useNavigate } from "react-router-dom";
@@ -23,7 +24,6 @@ import {
   removeUserInfo,
   getUserInfo,
 } from "../../utils/token/userinfo";
-
 import { NAVIGATION_ROUTES } from "../../constants/routes";
 
 type SidebarProps = {
@@ -63,7 +63,6 @@ const Sidebar = ({ collapsed }: SidebarProps) => {
       transition="width 0.25s ease-in-out, padding 0.25s ease-in-out"
       zIndex={1000}
     >
-      {/* Logo */}
       <Flex align="center" gap={3} mb={10}>
         <Image
           src="/hero.png"
@@ -82,8 +81,6 @@ const Sidebar = ({ collapsed }: SidebarProps) => {
           TBC NEPAL
         </Text>
       </Flex>
-
-      {/* Navigation */}
       <Stack gap={2} flex={1}>
         <NavItem
           to={NAVIGATION_ROUTES.DASHBOARD}
@@ -107,20 +104,14 @@ const Sidebar = ({ collapsed }: SidebarProps) => {
         </NavItem>
 
         <NavItem
-          to="/settings"
-          icon={<Settings size={18} />}
+          to={NAVIGATION_ROUTES.EXPENSE_TRACKER}
+          icon={ <CreditCardPlus size={18} /> }
         >
-          Settings
+          Expense Tracker
         </NavItem>
       </Stack>
 
-      {/* Profile */}
-      <Box
-        bg="whiteAlpha.600"
-        p={4}
-        borderRadius="md"
-        mt="auto"
-      >
+      <Separator orientation="horizontal" borderColor="gray.400" mb={4} />
         <Flex align="center" gap={3} mb={3}>
           <Image
             h={10}
@@ -144,6 +135,7 @@ const Sidebar = ({ collapsed }: SidebarProps) => {
         <Button
           w="full"
           size="sm"
+          bg={'whiteAlpha.300'}
           variant="ghost"
           onClick={handleLogout}
           display="flex"
@@ -153,7 +145,6 @@ const Sidebar = ({ collapsed }: SidebarProps) => {
           Logout
         </Button>
       </Box>
-    </Box>
   );
 };
 
@@ -178,10 +169,10 @@ const NavItem = ({
           py={3}
           borderRadius="md"
           color={isActive ? "white" : "black"}
-          bg={isActive ? "blue.500" : "transparent"}
+          bg={isActive ? "blue.500" : "blue.100"}
           transition="background 0.2s ease"
           _hover={{
-            bg: isActive ? "blue.500" : "gray.200",
+            bg: isActive ? "blue.600" : "blue.200",
           }}
         >
           {icon}
