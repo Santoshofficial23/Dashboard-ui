@@ -38,6 +38,7 @@ const TableComp = <T extends RowData>({
   const pageCount = Math.ceil(totalCount / pageSize);
   const columnCount = table.getAllLeafColumns().length;
   const isEmpty = !loading && data.length === 0;
+  const shouldScrollTable = totalCount > pageSize || data.length > pageSize;
 
   const handlePageChange = (nextPage: number) => {
     setPayload?.((prev) => ({ ...prev, page: nextPage }));
@@ -68,7 +69,7 @@ const TableComp = <T extends RowData>({
   }, [searchTerm]);
 
   return (
-    <Stack gap="4">
+    <Stack gap="4" h="100%" minH="0" flex="1">
       {showSearch && (
         <SearchBar
           onSearchChange={setSearchTerm}
@@ -76,13 +77,29 @@ const TableComp = <T extends RowData>({
         />
       )}
 
-      <Box borderWidth="1px" rounded="lg"  bg="bg.panel">
-        <Box maxH="400px" overflowY="auto">
+      <Box
+        borderWidth="1px"
+        rounded="lg"
+        bg="bg.panel"
+        display="flex"
+        flexDirection="column"
+        flex="1"
+        minH="0"
+        overflow="hidden"
+      >
+        <Box
+          flex="1"
+          minH="0"
+          overflowY={shouldScrollTable ? "auto" : "visible"}
+          overflowX="auto"
+          maxH={shouldScrollTable ? "calc(100vh - 280px)" : "none"}
+        >
           <Table.Root
             minW={"900px"}
             interactive={!isEmpty}
             size="sm"
             variant="outline"
+            width="100%"
           >
             <Table.Header position="sticky" top={0} zIndex={1} bg="gray.800">
               {table.getHeaderGroups().map((headerGroup) => (
@@ -143,13 +160,15 @@ const TableComp = <T extends RowData>({
         </Box>
 
         {showPagination && (
-          <Pagination
-            page={page}
-            pageSize={pageSize}
-            pageCount={pageCount}
-            onPageChange={handlePageChange}
-            onPageSizeChange={handlePageSizeChange}
-          />
+          <Box flexShrink={0}>
+            <Pagination
+              page={page}
+              pageSize={pageSize}
+              pageCount={pageCount}
+              onPageChange={handlePageChange}
+              onPageSizeChange={handlePageSizeChange}
+            />
+          </Box>
         )}
       </Box>
     </Stack>

@@ -10,13 +10,16 @@ const DashboardLayout = () => {
   const sidebarWidth = collapsed ? "0px" : "250px";
 
   return (
-    <Flex minH="90vh" bg="bg.muted">
-      {/* Sidebar */}
+    <Flex h="100vh" overflow="hidden" bg="bg.muted">
       <Sidebar collapsed={collapsed} />
+
       <Box
         ml={sidebarWidth}
         flex="1"
-        minH="100vh"
+        h="100vh"
+        display="flex"
+        flexDirection="column"
+        overflow="hidden"
         transition="margin-left 0.15s ease-in-out"
       >
         <Navbar
@@ -24,7 +27,7 @@ const DashboardLayout = () => {
           onToggleCollapse={() => setCollapsed((prev) => !prev)}
         />
 
-        <Box minH="calc(100vh - 130px)" p={8}>
+        <Box flex="1" minH="0" p={4}>
           <Outlet />
         </Box>
 

@@ -4,7 +4,6 @@ import {
   HStack,
   Separator,
   Stack,
-  Text,
 } from "@chakra-ui/react";
 import { useForm, useWatch } from "react-hook-form";
 import InputField from "../../components/input";

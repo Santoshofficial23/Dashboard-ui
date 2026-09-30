@@ -19,7 +19,6 @@ const Navbar = ({
         position="fixed"
         top="16px"
         left={collapsed ? "12px" : "245px"}
-        // zIndex={1100}
         variant="ghost"
         bg="transparent"
         color="gray.700"
@@ -39,7 +38,7 @@ const Navbar = ({
         color="gray.800"
         justify="center"
         align="center"
-        h="64px"
+        h="50px"
         borderBottom="1px solid"
         borderColor="gray.200"
       >
