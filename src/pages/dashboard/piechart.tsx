@@ -75,7 +75,7 @@ const ApexChart = () => {
             options={options}
             series={series}
             type="donut"
-            width="100%"
+            width="90%"
           />
         </Box>
       )}

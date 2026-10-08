@@ -1,223 +1,104 @@
 import { MODULE_TYPE_EXPENSE } from "../../types/type";
 import { useExpenseStore } from "../../store/expenses.zustand";
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { Box, Flex, Grid, GridItem, Text } from "@chakra-ui/react";
 import ApexChart from "./piechart";
 import ExpenseBarChart from "./barchart";
+import Dashcard from "./dashCard";
 
 const Dashboardpage = () => {
   const expenses = useExpenseStore((state) => state.expenses);
 
   const totalTransaction = expenses.length;
 
- const totals = expenses.reduce(
-  (acc, expense) => {
-    if (expense.type === MODULE_TYPE_EXPENSE.INCOME) {
-      acc.income += expense.amount;
-    } else {
-      acc.expense += expense.amount;
-    }
+  const totals = expenses.reduce(
+    (acc, expense) => {
+      if (expense.type === MODULE_TYPE_EXPENSE.INCOME) {
+        acc.income += expense.amount;
+      } else {
+        acc.expense += expense.amount;
+      }
 
-    acc.balance = acc.income - acc.expense;
+      acc.balance = acc.income - acc.expense;
 
-    return acc;
-  },
-  {
-    income: 0,
-    expense: 0,
-    balance: 0,
-  },
-);
-const expenseTransactions = expenses.filter(
-  (expense) => expense.type === MODULE_TYPE_EXPENSE.EXPENSE,
-);
-
-const avgExpense = expenseTransactions.length > 0
-  ? expenseTransactions.reduce(
-      (totalExpense, item) => totalExpense + Number(item.amount),
-      0,
-    ) / expenseTransactions.length
-  : 0;
-
-const topIncome = expenses
-  .filter((expense) => expense.type === MODULE_TYPE_EXPENSE.INCOME)
-  .reduce(
-    (max, expense) => Math.max(max, Number(expense.amount)),
-    0,
+      return acc;
+    },
+    {
+      income: 0,
+      expense: 0,
+      balance: 0,
+    },
+  );
+  const expenseTransactions = expenses.filter(
+    (expense) => expense.type === MODULE_TYPE_EXPENSE.EXPENSE,
   );
 
-  const formatCurrency = (amount: number) =>{
-  return `Rs. ${new Intl.NumberFormat("en-IN").format(amount)}`;
-};
+  const avgExpense =
+    expenseTransactions.length > 0
+      ? expenseTransactions.reduce(
+          (totalExpense, item) => totalExpense + Number(item.amount),
+          0,
+        ) / expenseTransactions.length
+      : 0;
+
+  const Highincomeofmonth = expenses
+    .filter((expense) => expense.type === MODULE_TYPE_EXPENSE.INCOME)
+    .reduce((max, expense) => Math.max(max, Number(expense.amount)), 0);
+
+  const formatCurrency = (amount: number) => {
+    return `Rs. ${new Intl.NumberFormat("en-IN").format(amount)}`;
+  };
+
+  const totalincome = formatCurrency(totals.income);
+  const Highincome = formatCurrency(Highincomeofmonth);
+  const totalExpense = formatCurrency(totals.expense);
+  const totalBalance = formatCurrency(totals.balance);
+  const avgExpenses = formatCurrency(avgExpense);
   return (
     <Flex direction="column" gap={6}>
-      <Flex gap={5} wrap="wrap">
-        <Box
-          p={6}
-          borderWidth="1px"
-          borderRadius="xl"
-          flex="1"
-          minW="220px"
-          bg="white"
-          boxShadow="sm"
-          transition="all 0.2s"
-          _hover={{
-            boxShadow: "md",
-            transform: "translateY(-2px)",
-          }}
-        >
-          <Text color="gray.500" fontSize="sm" fontWeight="medium">
-            Total Transaction
-          </Text>
-
-          <Text mt={2} fontSize="3xl" fontWeight="bold" color="gray.800">
-            {totalTransaction}
-          </Text>
-
-          <Text mt={1} fontSize="sm" color="gray.500">
-            All transactions
-          </Text>
-        </Box>
-        <Box
-          p={6}
-          borderWidth="1px"
-          borderRadius="xl"
-          flex="1"
-          minW="220px"
-          bg="green.50"
-          borderColor="green.100"
-          boxShadow="sm"
-          transition="all 0.2s"
-          _hover={{
-            boxShadow: "md",
-            transform: "translateY(-2px)",
-          }}
-        >
-          <Text color="green.700" fontSize="sm" fontWeight="medium">
-            Total Income
-          </Text>
-
-          <Text mt={2} fontSize="3xl" fontWeight="bold" color="green.700">
-            {formatCurrency(totals.income)}
-          </Text>
-
-          <Text mt={1} fontSize="sm" color="green.600">
-            Money received
-          </Text>
-        </Box>
-
-        <Box
-          p={6}
-          borderWidth="1px"
-          borderRadius="xl"
-          flex="1"
-          minW="220px"
-          bg="red.50"
-          borderColor="red.100"
-          boxShadow="sm"
-          transition="all 0.2s"
-          _hover={{
-            boxShadow: "md",
-            transform: "translateY(-2px)",
-          }}
-        >
-          <Text color="red.700" fontSize="sm" fontWeight="medium">
-            Total Expense
-          </Text>
-
-          <Text mt={2} fontSize="3xl" fontWeight="bold" color="red.700">
-            {formatCurrency(totals.expense)}
-          </Text>
-
-          <Text mt={1} fontSize="sm" color="red.600">
-            Money spent
-          </Text>
-        </Box>
-       
-          <Box
-          p={6}
-          borderWidth="1px"
-          borderRadius="xl"
-          flex="1"
-          minW="220px"
-          bg="red.50"
-          borderColor="red.100"
-          boxShadow="sm"
-          transition="all 0.2s"
-          _hover={{
-            boxShadow: "md",
-            transform: "translateY(-2px)",
-          }}
-        >
-          <Text color="red.700" fontSize="sm" fontWeight="medium">
-            Average Expense
-          </Text>
-
-          <Text mt={2} fontSize="3xl" fontWeight="bold" color="red.700">
-            {formatCurrency(avgExpense)}
-          </Text>
-
-          <Text mt={1} fontSize="sm" color="red.600">
-            Average expenses
-          </Text>
-        </Box>
-       
-       
-       
-
-        <Box
-          p={6}
-          borderWidth="1px"
-          borderRadius="xl"
-          flex="1"
-          minW="220px"
+      <Grid gap={4}  templateColumns="repeat(4, 1fr)">
+        <GridItem colSpan={2}>
+        <Dashcard
+          title="Total Transactions"
+          value={String(totalTransaction)}
+          borderColor="black"
+          color={"red"}
+          bg="blue.200"
+        />
+   </GridItem>
+        <Dashcard
+          title="Total Income"
+          value={totalincome}
+          borderColor="green"
           bg="green.100"
-          borderColor="blue.100"
-          boxShadow="sm"
-          transition="all 0.2s"
-          _hover={{
-            boxShadow: "md",
-            transform: "translateY(-2px)",
-          }}
-        >
-          <Text color="green.700" fontSize="sm" fontWeight="medium">
-            Balance
-          </Text>
-           <Text mt={2} fontSize="3xl" fontWeight="bold" color="green.700">
-            {formatCurrency(totals.balance)}
-          </Text>
+        />
 
-          <Text mt={1} fontSize="sm" color="green.600">
-            Remaining Balance
-          </Text>
-        </Box>
+        <Dashcard
+          title="Total Expenses"
+          value={totalExpense}
+          borderColor="red"
+          bg="red.100"
+        />
 
-         <Box
-          p={6}
-          borderWidth="1px"
-          borderRadius="xl"
-          flex="1"
-          minW="220px"
+        <Dashcard
+          title="Average Expense"
+          value={avgExpenses}
+          borderColor="red"
+          bg="red.100"
+        />
+        <Dashcard
+          title="Remaining Balances"
+          value={totalBalance}
+          borderColor="green"
           bg="green.100"
-          borderColor="blue.100"
-          boxShadow="sm"
-          transition="all 0.2s"
-          _hover={{
-            boxShadow: "md",
-            transform: "translateY(-2px)",
-          }}
-        >
-          <Text color="green.700" fontSize="sm" fontWeight="medium">
-            High Income
-          </Text>
-           <Text mt={2} fontSize="3xl" fontWeight="bold" color="green.700">
-            {formatCurrency(topIncome)}
-          </Text>
+        />
 
-          <Text mt={1} fontSize="sm" color="green.600">
-            Highest Income
-          </Text>
-        </Box>
-      </Flex>
+        <Dashcard
+          title="Highest Income"
+          value={Highincome}
+          borderColor="green"
+          bg="green.100"
+        />
+      </Grid>
 
       <Flex gap={6} direction={{ base: "column", lg: "row" }}>
         <Box p={5} borderWidth="1px" borderRadius="md" flex="1" minW={0}>

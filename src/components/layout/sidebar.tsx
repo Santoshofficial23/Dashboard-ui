@@ -14,11 +14,11 @@ import {
   LogOut,
   Menu,
   CreditCardPlus,
+  StickyNote,
 } from "lucide-react";
 
 import { NavLink, useNavigate } from "react-router-dom";
 import type { ReactNode } from "react";
-
 import { removeToken } from "../../utils/token/tokenkey";
 import {
   removeUserInfo,
@@ -108,6 +108,12 @@ const Sidebar = ({ collapsed }: SidebarProps) => {
           icon={ <CreditCardPlus size={18} /> }
         >
           Expense Tracker
+        </NavItem>
+        <NavItem
+          to={NAVIGATION_ROUTES.PRACTISE_PAGE}
+          icon={ <StickyNote size={18} /> }
+        >
+          Practise page
         </NavItem>
       </Stack>
 

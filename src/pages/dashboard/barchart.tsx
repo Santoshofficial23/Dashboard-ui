@@ -21,34 +21,33 @@ const ExpenseBarChart = () => {
         if (!Number.isFinite(amount)) return;
 
         const category = expense.category || "Uncategorized";
-        totals.set(
-          category,
-          (totals.get(category) ?? 0) + amount,
-        );
+        totals.set(category, (totals.get(category) ?? 0) + amount);
       });
 
-    return [...totals.entries()].sort(([, first], [, second]) => second - first);
+    return [...totals.entries()].sort(
+      ([, first], [, second]) => second - first,
+    );
   }, [expenses]);
 
   const options: ApexOptions = {
     chart: {
       type: "bar",
-      toolbar: { show: false },
+      toolbar: { show: true },
     },
     plotOptions: {
       bar: {
-        horizontal: true,
-        borderRadius: 5,
+        horizontal: false,
+        borderRadius: 2,
         distributed: true,
       },
     },
     colors: ["#0EA5E9", "#14B8A6", "#F59E0B", "#F43F5E", "#8B5CF6"],
-    dataLabels: { enabled: false },
+    dataLabels: { enabled: true },
     xaxis: {
       categories: categoryTotals.map(([category]) => category),
-      labels: {
-        formatter: (value) => formatCurrency(Number(value)),
-      },
+      // labels: {
+      //   formatter: (value) => formatCurrency(Number(value)),
+      // },
     },
     tooltip: {
       y: { formatter: formatCurrency },
@@ -71,7 +70,7 @@ const ExpenseBarChart = () => {
             },
           ]}
           type="bar"
-          height={Math.max(260, categoryTotals.length * 58)}
+          height={Math.max(320, categoryTotals.length * 58)}
           width="100%"
         />
       )}

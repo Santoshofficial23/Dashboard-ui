@@ -3,5 +3,6 @@ export const NAVIGATION_ROUTES={
     MENU:"/menu-setup",
     DASHBOARD:"/dashboard",
     BANK:"/bank-setup",
-    EXPENSE_TRACKER:"/expense-tracker"
+    EXPENSE_TRACKER:"/expense-tracker",
+    PRACTISE_PAGE:"/practise-page"
 }

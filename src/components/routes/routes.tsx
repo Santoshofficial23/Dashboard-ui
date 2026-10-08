@@ -8,6 +8,7 @@ import Dashboardpage from "../../pages/dashboard";
 import { NAVIGATION_ROUTES } from "../../constants/routes";
 import Bankpage from "../../pages/bank/Bankpage";
 import ExpenseTrackerPage from "../../pages/expense";
+import PractisePage from "../../pages/practise";
 
 const AppRoutes = () => {
   return (
@@ -25,6 +26,8 @@ const AppRoutes = () => {
             element={<Dashboardpage />}
           />
           <Route path={NAVIGATION_ROUTES.EXPENSE_TRACKER} element={<ExpenseTrackerPage/>} />
+          <Route path={NAVIGATION_ROUTES.PRACTISE_PAGE} element={<PractisePage/>} />
+          
         </Route>
       </Route>
 
