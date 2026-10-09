@@ -1,5 +1,5 @@
-import { Box, Flex, NativeSelect } from "@chakra-ui/react";
 import SearchBar from "../../components/table/Searchbar";
+import { Box, Flex, NativeSelect } from "@chakra-ui/react";
 
 type TypeFilter = "Expense" | "Income" | "none";
 type SortAmount = "asc" | "desc" | "none";
@@ -40,49 +40,39 @@ const ExpenseFilter = ({
           placeholder="Search expenses..."
         />
 
-        <Flex  justify={'flex-end'} gap={2}>
-        <NativeSelect.Root
-          size="sm"
-          width={{ base: "full", sm: "150px" }}
-        >
-          <NativeSelect.Field
-            value={typeFilter}
-            onChange={(e) =>
-              setTypeFilter(e.target.value as TypeFilter)
-            }
-            borderRadius="lg"
-            borderColor="gray.200"
-            bg="white"
-          >
-            <option value="none">All types</option>
-            <option value="Expense">Expenses</option>
-            <option value="Income">Income</option>
-          </NativeSelect.Field>
+        <Flex justify={"flex-end"} gap={2}>
+          <NativeSelect.Root size="sm" width={{ base: "full", sm: "150px" }}>
+            <NativeSelect.Field
+              value={typeFilter}
+              onChange={(e) => setTypeFilter(e.target.value as TypeFilter)}
+              borderRadius="lg"
+              borderColor="gray.200"
+              bg="white"
+            >
+              <option value="none">All types</option>
+              <option value="Expense">Expenses</option>
+              <option value="Income">Income</option>
+            </NativeSelect.Field>
 
-          <NativeSelect.Indicator />
-        </NativeSelect.Root>
+            <NativeSelect.Indicator />
+          </NativeSelect.Root>
 
-        {/* Amount Sort */}
-        <NativeSelect.Root
-          size="sm"
-          width={{ base: "full", sm: "180px" }}
-        >
-          <NativeSelect.Field
-            value={sortamount}
-            onChange={(e) =>
-              setSortamount(e.target.value as SortAmount)
-            }
-            borderRadius="lg"
-            borderColor="gray.200"
-            bg="white"
-          >
-            <option value="none">Sort by amount</option>
-            <option value="asc">Amount: low to high</option>
-            <option value="desc">Amount: high to low</option>
-          </NativeSelect.Field>
- 
-          <NativeSelect.Indicator />
-        </NativeSelect.Root>
+          {/* Amount Sort */}
+          <NativeSelect.Root size="sm" width={{ base: "full", sm: "180px" }}>
+            <NativeSelect.Field
+              value={sortamount}
+              onChange={(e) => setSortamount(e.target.value as SortAmount)}
+              borderRadius="lg"
+              borderColor="gray.200"
+              bg="white"
+            >
+              <option value="none">Sort by amount</option>
+              <option value="asc">Amount: low to high</option>
+              <option value="desc">Amount: high to low</option>
+            </NativeSelect.Field>
+
+            <NativeSelect.Indicator />
+          </NativeSelect.Root>
         </Flex>
       </Flex>
     </Box>

@@ -1,5 +1,5 @@
 import { MODULE_TYPE_EXPENSE } from "../../types/type";
-import TableComp from "../../components/table/Tablecomp";
+import TableComp from "../../components/table";
 import { Badge, Box, Button, Flex, Text } from "@chakra-ui/react";
 import { useMemo, useState } from "react";
 import ExpenseDrawer from "./ExpenseDrawer";
@@ -21,12 +21,8 @@ const ExpenseTrackertable = () => {
   const filteredexpenses = useMemo(() => {
     const filtered = expenses.filter((expense) => {
       return (
-        expense.title
-          .toLowerCase()
-          .includes(search.toUpperCase()) ||
-        expense.category
-          .toLowerCase()
-          .includes(search.toUpperCase())
+        expense.title.toLowerCase().includes(search.toUpperCase()) ||
+        expense.category.toLowerCase().includes(search.toUpperCase())
       );
     });
 
@@ -50,31 +46,20 @@ const ExpenseTrackertable = () => {
     return typeFiltered;
   }, [expenses, search, sortamount, typeFilter]);
 
-  const pageCount = Math.ceil(
-    filteredexpenses.length / pageSize,
-  );
+  const pageCount = Math.ceil(filteredexpenses.length / pageSize);
 
-  const validPage =
-    pageCount === 0 ? 1 : Math.min(page, pageCount);
+  const validPage = pageCount === 0 ? 1 : Math.min(page, pageCount);
 
   const paginatedExpenses = useMemo(() => {
     const start = (validPage - 1) * pageSize;
 
-    return filteredexpenses.slice(
-      start,
-      start + pageSize,
-    );
-  }, [
-    filteredexpenses,
-    validPage,
-    pageSize,
-  ]);
+    return filteredexpenses.slice(start, start + pageSize);
+  }, [filteredexpenses, validPage, pageSize]);
 
-    const handlePageSizeChange = (size: number) => {
+  const handlePageSizeChange = (size: number) => {
     setPageSize(size);
     setPage(1);
   };
-
 
   const formatCurrency = (amount: number) => {
     return `Rs. ${new Intl.NumberFormat("en-IN").format(amount)}`;

@@ -2,7 +2,7 @@ import { Box, DatePicker, Portal, Text } from "@chakra-ui/react";
 import { parseDate } from "@internationalized/date";
 import { Controller, type Control, type FieldValues, type Path } from "react-hook-form";
 import { CalendarDays } from "lucide-react";
-import FormWrapper from "../input/formfield";
+import FormWrapper from "../input/formField";
 
 type DatepickerProps<T extends FieldValues> = {
   name: Path<T>;

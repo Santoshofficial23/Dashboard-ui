@@ -1,4 +1,4 @@
-import CommonDialog from '../../components/CommonDialog/CommonDialog';
+import CommonDialog from '../../components/commondialog/commonDialog';
 import { Text } from '@chakra-ui/react';
 type ConfirmationDialogProps = {
   isOpen: boolean;

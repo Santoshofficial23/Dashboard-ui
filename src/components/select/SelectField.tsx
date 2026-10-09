@@ -6,7 +6,7 @@ import {
   type Path,
 } from "react-hook-form";
 import { Box, Text } from "@chakra-ui/react";
-import FormWrapper from "../input/formfield";
+import FormWrapper from "../input/formField";
 
 type Option = {
   value: string;

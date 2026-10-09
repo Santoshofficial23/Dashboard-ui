@@ -1,14 +1,10 @@
-import {
-  createSystem,
-  defaultConfig,
-  defineConfig,
-} from "@chakra-ui/react";
+import { createSystem, defaultConfig, defineConfig } from "@chakra-ui/react";
 
-import { colors} from "../tokens/color";
+import { colors } from "../tokens/color";
 import { fonts } from "../tokens/font";
-import {textRecipe} from "../recipes/text.recipe";
-import {buttonRecipe} from "../recipes/button.recipe";
-import { inputRecipe } from "../recipes/input.recipe";
+import { textRecipe } from "../recipes/textRecipe";
+import { buttonRecipe } from "../recipes/buttonRecipe";
+import { inputRecipe } from "../recipes/inputRecipe";
 
 const config = defineConfig({
   theme: {

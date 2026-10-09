@@ -3,7 +3,6 @@ import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { useSearchParams } from "react-router-dom";
 
-
 interface SearchBarProps {
   onSearchChange?: (value: string) => void;
   defaultValues?: string;
@@ -28,9 +27,7 @@ const SearchBar = ({
         flexGrow={1}
         w={{ base: "300px", md: "330px" }}
         h={"46px"}
-        startElement={
-            <FaSearch />
-        }
+        startElement={<FaSearch />}
       >
         <Input
           borderRadius={"xl"}

@@ -11,14 +11,14 @@ import {
 import { useForm, Controller, useFieldArray } from "react-hook-form";
 import { useEffect } from "react";
 import InputField from "../../components/input";
-import CommonDrawer from "../../components/Drawer/Commondrawer";
+import CommonDrawer from "../../components/drawer/commonDrawer";
 import SubMenuForm from "./Submenu";
 import {
   useCreateMenu,
   useUpdateMenu,
 } from "../../components/hooks/menu/useFetchmenu";
 import { useFetchMenuById } from "../../components/hooks/menu/useFetchmenuid";
-import { ACTION_PERMISSIONS } from "../../constants/Menuoptions";
+import { ACTION_PERMISSIONS } from "../../constants/menuOptions";
 import type { MenuSetupPayload } from "@/types/type";
 import { MODULE_TYPE } from "../../types/type";
 

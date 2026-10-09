@@ -13,29 +13,32 @@ export const useLogin = () => {
 
     onSuccess: (response, variables) => {
       // console.log(response)
-      const token =response.data.data.accessToken;
+      const token = response.data.data.accessToken;
 
       if (!token) {
-        showError("Login response did not contain an access token", "Login failed");
+        showError(
+          "Login response did not contain an access token",
+          "Login failed",
+        );
         return;
       }
 
       setToken(token);
-      
-      const email = response.data.data.email || response.data.data.user?.email || "";
+
+      const email =
+        response.data.data.email || response.data.data.user?.email || "";
       setUserInfo({
         username: variables.username,
-        email: email
+        email: email,
       });
-      
+
       showSuccess("Login successful");
       navigate("/dashboard", {
-        replace: true
-      })
+        replace: true,
+      });
     },
     onError: (error) => {
       showError(error, "Login failed");
-    }
+    },
   });
-
 };

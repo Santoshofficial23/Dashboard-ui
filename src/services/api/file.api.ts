@@ -4,10 +4,7 @@ export const FILE_ENDPOINT = "file/{filepath}";
 
 export const getFileBlob = async (filepath: string): Promise<Blob> => {
   const response = await fileApi.get<Blob>(
-    FILE_ENDPOINT.replace(
-      "{filepath}",
-      encodeURIComponent(filepath),
-    ),
+    FILE_ENDPOINT.replace("{filepath}", encodeURIComponent(filepath)),
     {
       responseType: "blob",
     },
@@ -32,10 +29,7 @@ export const getFilePath = (value: unknown): string | undefined => {
   const record = value as Record<string, unknown>;
 
   const filepath =
-    record.filepath ??
-    record.filePath ??
-    record.path ??
-    record.id;
+    record.filepath ?? record.filePath ?? record.path ?? record.id;
 
   if (typeof filepath === "string" && filepath.trim()) {
     return filepath;

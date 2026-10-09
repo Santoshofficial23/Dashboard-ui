@@ -1,7 +1,7 @@
 import { Box, Button, HStack, Stack, Text, Checkbox } from "@chakra-ui/react";
 import { Controller, useWatch, type Control } from "react-hook-form";
 import InputField from "../../components/input";
-import { ACTION_PERMISSIONS } from "../../constants/Menuoptions";
+import { ACTION_PERMISSIONS } from "../../constants/menuOptions";
 import type { MenuFormData } from "./MenuDrawer";
 
 type SubMenuFormProps = {

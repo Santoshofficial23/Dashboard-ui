@@ -13,7 +13,7 @@ import {
   type Path,
 } from "react-hook-form";
 
-import FormWrapper from "./formfield";
+import FormWrapper from "./formField";
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 
@@ -27,7 +27,7 @@ type InputFieldProps<T extends FieldValues> = {
   min?: number;
   max?: number;
   maxLength?: number;
-  height?: number|string;
+  height?: number | string;
   textarea?: boolean;
   subType?: "NAME" | "CONTACT" | "EMAIL";
 };
@@ -94,7 +94,7 @@ const InputField = <T extends FieldValues>({
             maxLength={maxLength}
             rows={4}
             height={height}
-            resize={'none'}
+            resize={"none"}
             onChange={handleChange}
           />
         ) : (

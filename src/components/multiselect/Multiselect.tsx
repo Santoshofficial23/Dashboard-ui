@@ -1,10 +1,10 @@
 import {
   CATEGORY_TYPE_EXPENSE_OPTIONS,
   CATEGORY_TYPE_INCOME_OPTIONS,
-} from "../../constants/Categoryoptions";
+} from "../../constants/categoryOptions";
 import { Box, Text } from "@chakra-ui/react";
 import CreatableSelect from "react-select/creatable";
-import FormWrapper from "../input/formfield";
+import FormWrapper from "../input/formField";
 import { MODULE_TYPE_EXPENSE } from "../../types/type";
 import { useCategoryStore } from "../../store/category.store";
 import {

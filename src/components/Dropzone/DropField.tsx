@@ -6,8 +6,8 @@ import {
   type Path,
 } from "react-hook-form";
 
-import FormWrapper from "../input/formfield";
-import DropZone from "./DropZone";
+import FormWrapper from "../input/formField";
+import DropZone from "./dropZone";
 
 type DropFieldProps<T extends FieldValues> = {
   name: Path<T>;
@@ -15,9 +15,9 @@ type DropFieldProps<T extends FieldValues> = {
   label: string;
   isMulti?: boolean;
   maxFiles?: number;
-  maxSize:string;
-  height?:string;
-  width?:string;
+  maxSize: string;
+  height?: string;
+  width?: string;
   filePath?: string;
 };
 
@@ -34,18 +34,14 @@ const DropField = <T extends FieldValues>({
   const { field, fieldState } = useController({
     name,
     control,
-  
   });
 
   return (
-    <FormWrapper
-      label={label}
-      errorText={fieldState.error?.message}
-    >
+    <FormWrapper label={label} errorText={fieldState.error?.message}>
       <Box w="full">
         <DropZone
-        height={height}
-        width={width}
+          height={height}
+          width={width}
           onFileSelect={field.onChange}
           isMulti={isMulti}
           maxFiles={maxFiles}

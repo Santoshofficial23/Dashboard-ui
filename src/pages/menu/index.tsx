@@ -3,7 +3,7 @@ import { Button, Flex, HStack, useDisclosure } from "@chakra-ui/react";
 import { Pencil } from "lucide-react";
 import TableComp, {
   type TableColumnDef,
-} from "../../components/table/Tablecomp";
+} from "../../components/table";
 import { useFetchMenu } from "../../components/hooks/menu/useFetchmenu";
 import MenuDrawer from "./MenuDrawer";
 import type { MenuResponseType } from "@/types/type";
@@ -73,7 +73,10 @@ const MenuTable = () => {
               size="xs"
               bg="blue.600"
               color="white"
-              onClick={() => {setSelectedMenuId(String(row.original.id)); onOpen();}}
+              onClick={() => {
+                setSelectedMenuId(String(row.original.id));
+                onOpen();
+              }}
             >
               <Pencil size={14} />
               Edit

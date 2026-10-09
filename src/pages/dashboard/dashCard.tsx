@@ -40,8 +40,6 @@ const Dashcard = ({
       <Text mt={1} fontSize="2xl" fontWeight="bold" color="gray.800">
         {value}
       </Text>
-
-    
     </Box>
   );
 };

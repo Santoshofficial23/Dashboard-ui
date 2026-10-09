@@ -25,11 +25,7 @@ const Notification = () => {
               borderRadius="6px"
               borderLeft="3px solid"
               borderLeftColor={
-                isSuccess
-                  ? "green.400"
-                  : isError
-                    ? "red.400"
-                    : "blue.400"
+                isSuccess ? "green.400" : isError ? "red.400" : "blue.400"
               }
               boxShadow="0 4px 15px rgba(0, 0, 0, 0.08)"
               px="4"
@@ -66,14 +62,8 @@ const Notification = () => {
                   <X size={19} color="white" strokeWidth={3} />
                 </Box>
               )}
-              {!isSuccess && !isError && (
-                <Toast.Indicator flexShrink={0} />
-              )}
-              <Stack
-                gap="0"
-                flex="1"
-                minW="0"
-              >
+              {!isSuccess && !isError && <Toast.Indicator flexShrink={0} />}
+              <Stack gap="0" flex="1" minW="0">
                 {toast.title && (
                   <Toast.Title
                     fontSize="15px"

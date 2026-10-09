@@ -4,10 +4,7 @@ export const loginSchema = yup.object({
   username: yup
     .string()
     .required("Email is required")
-    .matches(
-         /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-      "username is not valid"
-    ),
+    .matches(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, "username is not valid"),
 
   password: yup
     .string()

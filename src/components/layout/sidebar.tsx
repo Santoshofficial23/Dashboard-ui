@@ -20,10 +20,7 @@ import {
 import { NavLink, useNavigate } from "react-router-dom";
 import type { ReactNode } from "react";
 import { removeToken } from "../../utils/token/tokenkey";
-import {
-  removeUserInfo,
-  getUserInfo,
-} from "../../utils/token/userinfo";
+import { removeUserInfo, getUserInfo } from "../../utils/token/userinfo";
 import { NAVIGATION_ROUTES } from "../../constants/routes";
 
 type SidebarProps = {
@@ -73,11 +70,7 @@ const Sidebar = ({ collapsed }: SidebarProps) => {
           flexShrink={0}
         />
 
-        <Text
-          fontSize="xl"
-          fontWeight="bold"
-          whiteSpace="nowrap"
-        >
+        <Text fontSize="xl" fontWeight="bold" whiteSpace="nowrap">
           TBC NEPAL
         </Text>
       </Flex>
@@ -89,68 +82,62 @@ const Sidebar = ({ collapsed }: SidebarProps) => {
           Dashboard
         </NavItem>
 
-        <NavItem
-          to={NAVIGATION_ROUTES.MENU}
-          icon={<Menu size={18} />}
-        >
+        <NavItem to={NAVIGATION_ROUTES.MENU} icon={<Menu size={18} />}>
           Menu Setup
         </NavItem>
 
-        <NavItem
-          to={NAVIGATION_ROUTES.BANK}
-          icon={<LandmarkIcon size={18} />}
-        >
+        <NavItem to={NAVIGATION_ROUTES.BANK} icon={<LandmarkIcon size={18} />}>
           Bank Setup
         </NavItem>
 
         <NavItem
           to={NAVIGATION_ROUTES.EXPENSE_TRACKER}
-          icon={ <CreditCardPlus size={18} /> }
+          icon={<CreditCardPlus size={18} />}
         >
           Expense Tracker
         </NavItem>
         <NavItem
           to={NAVIGATION_ROUTES.PRACTISE_PAGE}
-          icon={ <StickyNote size={18} /> }
+          icon={<StickyNote size={18} />}
         >
           Practise page
         </NavItem>
       </Stack>
 
       <Separator orientation="horizontal" borderColor="gray.400" mb={4} />
-        <Flex align="center" gap={3} mb={3}>
-          <Image
-            h={10}
-            w={10}
-            borderRadius="50%"
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXJNyWgnnidyZtwYgTLuwl1gUEpIwctB2HQDeDRdydiA&s=10"
-            alt="Admin Avatar"
-          />
+      <Flex align="center" gap={3} mb={3}>
+        <Image
+          h={10}
+          w={10}
+          borderRadius="50%"
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXJNyWgnnidyZtwYgTLuwl1gUEpIwctB2HQDeDRdydiA&s=10"
+          alt="Admin Avatar"
+        />
 
-          <Box flex={1}>
-            <Text fontWeight="bold" fontSize="sm">
-              Super Admin
-            </Text>
+        <Box flex={1}>
+          <Text fontWeight="bold" fontSize="sm">
+            Super Admin
+          </Text>
 
-            <Text fontSize="sm" color="gray.600" truncate>
-              {userInfo.username ? userInfo.username : "No username provided"}
-            </Text>
-          </Box>
-        </Flex>
+          <Text fontSize="sm" color="gray.600" truncate>
+            {userInfo.username ? userInfo.username : "No username provided"}
+          </Text>
+        </Box>
+      </Flex>
 
-        <Button
-          w="full"
-          size="sm"
-          bg={'whiteAlpha.300'}
-          variant="ghost"
-          onClick={handleLogout}
-          display="flex"
-          gap={2}
-        >
-          <LogOut size={16} />
-          Logout
-        </Button>
-      </Box>
+      <Button
+        w="full"
+        size="sm"
+        bg={"whiteAlpha.300"}
+        variant="ghost"
+        onClick={handleLogout}
+        display="flex"
+        gap={2}
+      >
+        <LogOut size={16} />
+        Logout
+      </Button>
+    </Box>
   );
 };
 
@@ -160,11 +147,7 @@ type NavItemProps = {
   children: ReactNode;
 };
 
-const NavItem = ({
-  to,
-  icon,
-  children,
-}: NavItemProps) => {
+const NavItem = ({ to, icon, children }: NavItemProps) => {
   return (
     <NavLink to={to}>
       {({ isActive }) => (
@@ -183,9 +166,7 @@ const NavItem = ({
         >
           {icon}
 
-          <Text color={isActive ? "white" : "black"}>
-            {children}
-          </Text>
+          <Text color={isActive ? "white" : "black"}>{children}</Text>
         </Flex>
       )}
     </NavLink>

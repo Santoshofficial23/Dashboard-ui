@@ -4,8 +4,8 @@ import { Controller, useForm } from "react-hook-form";
 import { useEffect } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import InputField from "../../components/input";
-import SelectField from "../../components/select/SelectField";
-import { INSTITUTION_TYPE_OPTIONS } from "../../constants/Bankoptions";
+import SelectField from "../../components/select/selectField";
+import { INSTITUTION_TYPE_OPTIONS } from "../../constants/bankOptions";
 import { bankSchema } from "../../schemas/bank.schema";
 import {
   useCreateBank,
@@ -13,9 +13,10 @@ import {
 } from "../../components/hooks/bank/useCreatebank";
 import { useFetchBankById } from "../../components/hooks/bank/useFetchbankById";
 import { useUpdateBank } from "../../components/hooks/bank/useUpdatebank";
-import DropField from "../../components/Dropzone/DropField";
+import DropField from "../../components/dropzone/dropField";
 import { getFilePath } from "../../services/api/file.api";
-import CommonDrawer from "../../components/Drawer/Commondrawer";
+import CommonDrawer from "../../components/drawer/commonDrawer";
+
 type DialogProps = {
   isOpen: boolean;
   open: boolean;
@@ -129,36 +130,36 @@ const Bankdrawer = ({ open, isOpen, onClose, selectedBankId }: DialogProps) => {
 
   return (
     <>
-     <Box as="form" id="bank-form" onSubmit={handleSubmit(onSubmit)} pt={10}>
-      <CommonDrawer
-      size="md"
-      placement="end"
-      open={open}
-      onClose={handleClose}
-      title={selectedBankId ? "Edit Bank" : "Add Bank"}
-      footer={
-        <HStack justify="flex-end" gap={4} w="full">
-          <Button variant="outline" type="button" onClick={handleClear}>
-            Clear
-          </Button>
-          <Button
-            bg="blue.700"
-            color="white"
-            type="submit"
-            form="bank-form"
-            loading={isBankLoading}
-          >
-            {isBankLoading
-              ? "Loading..."
-              : isCreating
-                ? "Adding..."
-                : isUpdating
-                  ? "Updating..."
-                  : "Submit"}
-          </Button>
-        </HStack>
-      }
-    >
+      <Box as="form" id="bank-form" onSubmit={handleSubmit(onSubmit)} pt={10}>
+        <CommonDrawer
+          size="md"
+          placement="end"
+          open={open}
+          onClose={handleClose}
+          title={selectedBankId ? "Edit Bank" : "Add Bank"}
+          footer={
+            <HStack justify="flex-end" gap={4} w="full">
+              <Button variant="outline" type="button" onClick={handleClear}>
+                Clear
+              </Button>
+              <Button
+                bg="blue.700"
+                color="white"
+                type="submit"
+                form="bank-form"
+                loading={isBankLoading}
+              >
+                {isBankLoading
+                  ? "Loading..."
+                  : isCreating
+                    ? "Adding..."
+                    : isUpdating
+                      ? "Updating..."
+                      : "Submit"}
+              </Button>
+            </HStack>
+          }
+        >
           <Stack gap={4}>
             <InputField
               control={control}
@@ -237,7 +238,7 @@ const Bankdrawer = ({ open, isOpen, onClose, selectedBankId }: DialogProps) => {
               />
             </HStack>
           </Stack>
-      </CommonDrawer> 
+        </CommonDrawer>
       </Box>
     </>
   );

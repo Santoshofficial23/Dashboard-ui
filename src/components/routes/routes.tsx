@@ -6,7 +6,7 @@ import DashboardLayout from "../layout/dashboard";
 import Userpage from "../../pages/menu/MenuPage";
 import Dashboardpage from "../../pages/dashboard";
 import { NAVIGATION_ROUTES } from "../../constants/routes";
-import Bankpage from "../../pages/bank/Bankpage";
+import Bankpage from "../../pages/bank/bankPage";
 import ExpenseTrackerPage from "../../pages/expense";
 import PractisePage from "../../pages/practise";
 

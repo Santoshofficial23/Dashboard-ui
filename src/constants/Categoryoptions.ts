@@ -33,12 +33,12 @@ export const CATEGORY_TYPE_INCOME_OPTIONS = [
 ];
 
 export const MODULE_TYPE_EXPENSE = [
-   {
+  {
     label: "INCOME",
     value: "INCOME",
   },
   {
     label: "EXPENSE",
     value: "EXPENSE",
-  }
-]
+  },
+];

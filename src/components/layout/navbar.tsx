@@ -1,18 +1,12 @@
 import { Button, Box, Flex, Text } from "@chakra-ui/react";
-import {
-  PanelRightOpen,
-  PanelRightClose,
-} from "lucide-react";
+import { PanelRightOpen, PanelRightClose } from "lucide-react";
 
 type NavbarProps = {
   onToggleCollapse: () => void;
   collapsed: boolean;
 };
 
-const Navbar = ({
-  onToggleCollapse,
-  collapsed,
-}: NavbarProps) => {
+const Navbar = ({ onToggleCollapse, collapsed }: NavbarProps) => {
   return (
     <Box>
       <Button

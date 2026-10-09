@@ -55,16 +55,16 @@ const Dashboardpage = () => {
   const avgExpenses = formatCurrency(avgExpense);
   return (
     <Flex direction="column" gap={6}>
-      <Grid gap={4}  templateColumns="repeat(4, 1fr)">
+      <Grid gap={4} templateColumns="repeat(4, 1fr)">
         <GridItem colSpan={2}>
-        <Dashcard
-          title="Total Transactions"
-          value={String(totalTransaction)}
-          borderColor="black"
-          color={"red"}
-          bg="blue.200"
-        />
-   </GridItem>
+          <Dashcard
+            title="Total Transactions"
+            value={String(totalTransaction)}
+            borderColor="black"
+            color={"red"}
+            bg="blue.200"
+          />
+        </GridItem>
         <Dashcard
           title="Total Income"
           value={totalincome}

@@ -19,18 +19,12 @@ const FormWrapper = ({
       <Field.Label>
         {label}
 
-        {required && (
-          <Field.RequiredIndicator />
-        )}
+        {required && <Field.RequiredIndicator />}
       </Field.Label>
 
       {children}
 
-      {errorText && (
-        <Field.ErrorText>
-          {errorText}
-        </Field.ErrorText>
-      )}
+      {errorText && <Field.ErrorText>{errorText}</Field.ErrorText>}
     </Field.Root>
   );
 };

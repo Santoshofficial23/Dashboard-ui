@@ -1,9 +1,4 @@
-import {
-  Button,
-  HStack,
-  IconButton,
-  Text,
-} from "@chakra-ui/react";
+import { Button, HStack, IconButton, Text } from "@chakra-ui/react";
 import {
   ArrowLeft,
   ArrowRight,
@@ -27,33 +22,22 @@ const Pagination = ({
   onPageChange,
   onPageSizeChange,
 }: PaginationProps) => {
-  const getPageNumbers = (): (
-    | number
-    | "ellipsis"
-  )[] => {
+  const getPageNumbers = (): (number | "ellipsis")[] => {
     if (pageCount <= 1) {
       return pageCount === 1 ? [1] : [];
     }
 
-    const pages: (
-      | number
-      | "ellipsis"
-    )[] = [];
+    const pages: (number | "ellipsis")[] = [];
 
     const range: number[] = [];
 
     const delta = 1;
 
-    for (
-      let index = 1;
-      index <= pageCount;
-      index++
-    ) {
+    for (let index = 1; index <= pageCount; index++) {
       if (
         index === 1 ||
         index === pageCount ||
-        (index >= page - delta &&
-          index <= page + delta)
+        (index >= page - delta && index <= page + delta)
       ) {
         range.push(index);
       }
@@ -62,10 +46,7 @@ const Pagination = ({
     let previous: number | undefined;
 
     for (const current of range) {
-      if (
-        previous !== undefined &&
-        current - previous > 1
-      ) {
+      if (previous !== undefined && current - previous > 1) {
         pages.push("ellipsis");
       }
 
@@ -94,10 +75,7 @@ const Pagination = ({
       gap="3"
     >
       <HStack gap="4">
-        <Text
-          fontSize="sm"
-          color="black"
-        >
+        <Text fontSize="sm" color="black">
           Rows per page
         </Text>
 
@@ -139,60 +117,42 @@ const Pagination = ({
           size="sm"
           variant="ghost"
           disabled={page <= 1}
-          onClick={() =>
-            onPageChange(page - 1)
-          }
+          onClick={() => onPageChange(page - 1)}
         >
           <ArrowLeft size={16} />
         </IconButton>
 
         {/* Page Numbers */}
-        {getPageNumbers().map(
-          (pageNumber, index) =>
-            pageNumber === "ellipsis" ? (
-              <Text
-                key={`ellipsis-${index}`}
-                px="2"
-                color="fg.muted"
-                fontSize="sm"
-              >
-                …
-              </Text>
-            ) : (
-              <Button
-                key={pageNumber}
-                size="sm"
-                minW="8"
-                variant={
-                  pageNumber === page
-                    ? "solid"
-                    : "ghost"
-                }
-                colorPalette={
-                  pageNumber === page
-                    ? "blue"
-                    : undefined
-                }
-                onClick={() =>
-                  onPageChange(pageNumber)
-                }
-              >
-                {pageNumber}
-              </Button>
-            ),
+        {getPageNumbers().map((pageNumber, index) =>
+          pageNumber === "ellipsis" ? (
+            <Text
+              key={`ellipsis-${index}`}
+              px="2"
+              color="fg.muted"
+              fontSize="sm"
+            >
+              …
+            </Text>
+          ) : (
+            <Button
+              key={pageNumber}
+              size="sm"
+              minW="8"
+              variant={pageNumber === page ? "solid" : "ghost"}
+              colorPalette={pageNumber === page ? "blue" : undefined}
+              onClick={() => onPageChange(pageNumber)}
+            >
+              {pageNumber}
+            </Button>
+          ),
         )}
 
         <IconButton
           aria-label="Next page"
           size="sm"
           variant="ghost"
-          disabled={
-            page >= pageCount ||
-            pageCount === 0
-          }
-          onClick={() =>
-            onPageChange(page + 1)
-          }
+          disabled={page >= pageCount || pageCount === 0}
+          onClick={() => onPageChange(page + 1)}
         >
           <ArrowRight size={16} />
         </IconButton>
@@ -201,13 +161,8 @@ const Pagination = ({
           aria-label="Last page"
           size="sm"
           variant="ghost"
-          disabled={
-            page >= pageCount ||
-            pageCount === 0
-          }
-          onClick={() =>
-            onPageChange(pageCount)
-          }
+          disabled={page >= pageCount || pageCount === 0}
+          onClick={() => onPageChange(pageCount)}
         >
           <ChevronsRight size={16} />
         </IconButton>

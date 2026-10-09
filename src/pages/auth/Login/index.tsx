@@ -12,7 +12,7 @@ const BGImage =
   "https://i.pinimg.com/1200x/4f/0b/a4/4f0ba4cdd7fda6043c4f93c927631510.jpg";
 
 const Loginpage = () => {
-   const [rememberme, Setrememberme] = useState(false)
+  const [rememberme, Setrememberme] = useState(false);
 
   const { control, handleSubmit, reset } = useForm<LoginFormData>({
     resolver: yupResolver(loginSchema),
@@ -23,23 +23,23 @@ const Loginpage = () => {
   });
   const loginMutation = useLogin();
 
-  useEffect(()=> {
-    const savedusername = localStorage.getItem("username")
-    const savedpassword = localStorage.getItem("password")
-   if (savedusername && savedpassword) {
-    Setrememberme(true);
+  useEffect(() => {
+    const savedusername = localStorage.getItem("username");
+    const savedpassword = localStorage.getItem("password");
+    if (savedusername && savedpassword) {
+      // Setrememberme(true);
 
-    reset({
-      username: savedusername,
-      password: savedpassword
-    })
-   }
-  }, [reset])
+      reset({
+        username: savedusername,
+        password: savedpassword,
+      });
+    }
+  }, [reset]);
 
   const onSubmit = (data: LoginFormData) => {
-    if(rememberme){
-      localStorage.setItem("username", data.username)
-      localStorage.setItem("password", data.password)
+    if (rememberme) {
+      localStorage.setItem("username", data.username);
+      localStorage.setItem("password", data.password);
     }
     loginMutation.mutate(data);
   };
@@ -93,25 +93,25 @@ const Loginpage = () => {
             placeholder="Password"
           />
           <Checkbox.Root
-          checked={rememberme}
-          onCheckedChange={(details) => {
-            Setrememberme(!! details.checked)
-          }}
+            checked={rememberme}
+            onCheckedChange={(details) => {
+              Setrememberme(!!details.checked);
+            }}
           >
             <Checkbox.HiddenInput />
             <Checkbox.Control />
             <Checkbox.Label>Remember me</Checkbox.Label>
           </Checkbox.Root>
-         <Box mt={4}>
-          <Button
-            type="submit"
-            bg={"purple.600"}
-            ml={28}
-            w={52}
-            loading={loginMutation.isPending}
-          >
-            Sign In
-          </Button>
+          <Box mt={4}>
+            <Button
+              type="submit"
+              bg={"purple.600"}
+              ml={28}
+              w={52}
+              loading={loginMutation.isPending}
+            >
+              Sign In
+            </Button>
           </Box>
         </form>
       </Box>

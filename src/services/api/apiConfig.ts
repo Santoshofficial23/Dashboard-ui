@@ -22,14 +22,8 @@ const createApi = (baseURL: string) => {
   return client;
 };
 
-export const authApi = createApi(
-  import.meta.env.VITE_BACKEND_API_ENDPOINT
-);
+export const authApi = createApi(import.meta.env.VITE_BACKEND_API_ENDPOINT);
 
-export const bankApi = createApi(
-  import.meta.env.VITE_BANK_API_ENDPOINT
-);
+export const bankApi = createApi(import.meta.env.VITE_BANK_API_ENDPOINT);
 
-export const fileApi = createApi(
-  import.meta.env.VITE_FILE_PATH_ENDPOINT
-);
+export const fileApi = createApi(import.meta.env.VITE_FILE_PATH_ENDPOINT);

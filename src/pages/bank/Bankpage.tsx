@@ -1,5 +1,5 @@
 import { Box} from "@chakra-ui/react";
-import BankTable from "./Banktable";
+import BankTable from "./bankTable";
 
 
 const Bankpage = () => {

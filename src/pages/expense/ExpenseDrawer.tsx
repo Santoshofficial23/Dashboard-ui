@@ -1,16 +1,10 @@
-import {
-  Box,
-  Button,
-  HStack,
-  Separator,
-  Stack,
-} from "@chakra-ui/react";
+import { Box, Button, HStack, Separator, Stack } from "@chakra-ui/react";
 import { useForm, useWatch } from "react-hook-form";
 import InputField from "../../components/input";
-import CommonDrawer from "../../components/Drawer/Commondrawer";
+import CommonDrawer from "../../components/drawer/commonDrawer";
 import { MODULE_TYPE_EXPENSE, type ExpenseFormData } from "../../types/type";
-import Multiselect from "../../components/multiselect/Multiselect";
-import SelectField from "../../components/select/SelectField";
+import Multiselect from "../../components/multiselect/multiSelect";
+import SelectField from "../../components/select/selectField";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ExpenseSchema } from "../../schemas/expense.schema";
 import Datepicker from "../../components/ui/date-picker";
@@ -54,7 +48,6 @@ const ExpenseDrawer = ({ open, onClose, onAdd }: ExpenseDrawerProps) => {
   };
 
   return (
-    
     <CommonDrawer
       title="Add Expenses and Income Details"
       size="lg"
@@ -73,11 +66,10 @@ const ExpenseDrawer = ({ open, onClose, onAdd }: ExpenseDrawerProps) => {
         </HStack>
       }
     >
-      <Box as="form" id="expense-form" onSubmit={handleSubmit(onSubmit)} p={6} >
+      <Box as="form" id="expense-form" onSubmit={handleSubmit(onSubmit)} p={6}>
         <Stack gap={5}>
           <Stack gap={5}>
             <HStack gap={6}>
-              
               <Box flex={1}>
                 <InputField
                   name="title"
@@ -97,21 +89,19 @@ const ExpenseDrawer = ({ open, onClose, onAdd }: ExpenseDrawerProps) => {
                 />
               </Box>
             </HStack>
-           
-              <SelectField
-                name="type"
-                width="574px"
-                control={control}
-                label="Transaction Type"
-                options={Object.entries(MODULE_TYPE_EXPENSE).map(
-                  ([, value]) => ({
-                    label: value,
-                    value,
-                  }),
-                )}
-                placeholder="Select transaction type"
-              />
-            
+
+            <SelectField
+              name="type"
+              width="574px"
+              control={control}
+              label="Transaction Type"
+              options={Object.entries(MODULE_TYPE_EXPENSE).map(([, value]) => ({
+                label: value,
+                value,
+              }))}
+              placeholder="Select transaction type"
+            />
+
             <Box flex={1} mt={4}>
               <Multiselect
                 name="category"
@@ -136,13 +126,11 @@ const ExpenseDrawer = ({ open, onClose, onAdd }: ExpenseDrawerProps) => {
                 textarea
               />
             </Box>
-              <Separator mt={24} color={'blackAlpha.200'}/>
+            <Separator mt={24} color={"blackAlpha.200"} />
           </Stack>
-        
         </Stack>
       </Box>
     </CommonDrawer>
-   
   );
 };
 

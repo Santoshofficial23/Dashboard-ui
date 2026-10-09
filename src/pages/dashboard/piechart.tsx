@@ -21,13 +21,12 @@ const ApexChart = () => {
         if (!Number.isFinite(amount)) return;
 
         const category = expense.category || "Uncategorized";
-        totals.set(
-          category,
-          (totals.get(category) ?? 0) + amount,
-        );
+        totals.set(category, (totals.get(category) ?? 0) + amount);
       });
 
-    return [...totals.entries()].sort(([, first], [, second]) => second - first);
+    return [...totals.entries()].sort(
+      ([, first], [, second]) => second - first,
+    );
   }, [expenses]);
 
   const series = categoryTotals.map(([, amount]) => amount);
@@ -47,7 +46,9 @@ const ApexChart = () => {
               show: true,
               label: "Total Expense",
               formatter: () =>
-                formatCurrency(series.reduce((total, amount) => total + amount, 0)),
+                formatCurrency(
+                  series.reduce((total, amount) => total + amount, 0),
+                ),
             },
           },
         },
